@@ -1,6 +1,7 @@
 package br.com.multe.apontamento.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,5 +31,14 @@ public class IndexController
 	{
 		List<Evento> eventos = eventoService.getAll();
 		return new GsonBuilder().create().toJson(eventos);
+	}
+	
+	@RequestMapping(value = "/novo", method = RequestMethod.GET)
+	public @ResponseBody String prepareNovo()
+	{
+		Map<Integer, String> os = eventoService.getOs();
+		Map<Integer, String> categorias = eventoService.getCategorias();
+		return "";
+//		return new GsonBuilder().create().toJson(eventos);
 	}
 }

@@ -12,6 +12,7 @@ public class Constants
 	public static final String LOGIN_SENHA = "ctl00_boxPrincipal_cphConteudo_txtSenha";
 	public static final String LOGIN_BOTAO = "ctl00_boxPrincipal_cphConteudo_btnAcessar";
 	
+	
 	/*
 	 * TELA APONTAMENTOS 
 	 */
@@ -23,5 +24,19 @@ public class Constants
 	public static final String LISTA_ALL = "ctl00_boxPrincipal_cphGrid_rdBtnLstRegPerPage_3";
 	public static final String LISTA_FILTRO = "ctl00_boxPrincipal_cphCamposFiltro_btnFiltrar";
 	public static final String LISTA_TABELA = "ctl00_boxPrincipal_cphGrid_grdPrincipal";	
+	public static final String LISTA_NOVO = "ctl00_boxPrincipal_cphGrid_btnNovo";
+	
+	
+	/*
+	 * TELA NOVO APONTAMENTO
+	 */
+	
+	public static final String NOVO_OS = "ctl00_boxPrincipal_cphConteudo_ddlOrdem";
+	public static final String NOVO_CATEGORIA = "ctl00_boxPrincipal_cphConteudo_ddlCategoria";
+	public static final String NOVO_DATA = "";
+	public static final String NOVO_INICIO = "";
+	public static final String NOVO_FIM = "";
+	public static final String NOVO_DESCRICAO = "";
+	public static final String NOVO_BOTAO = "";
 }
 

@@ -3,7 +3,9 @@ package br.com.multe.apontamento.service.impl;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,9 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.gargoylesoftware.htmlunit.html.HtmlTableCell;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
@@ -43,9 +47,49 @@ public class EventoService implements IEventoService
 	}
 	
 	@Override
+	public Map<Integer, String> getOs() 
+	{
+		doLogin("hsaraujo", "12345678");
+		goToListPage();
+		goToNewPage();
+		
+		Map<Integer, String> result = new HashMap<Integer, String>();
+		
+		HtmlSelect select = page.getHtmlElementById(Constants.NOVO_OS);
+		for(HtmlOption option : select.getOptions())
+		{
+			if(!option.getValueAttribute().equalsIgnoreCase(""))
+			{
+				result.put(Integer.getInteger(option.getValueAttribute()), option.getText());
+			}
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public Map<Integer, String> getCategorias() 
+	{
+		Map<Integer, String> result = new HashMap<Integer, String>();
+		
+		HtmlSelect select = page.getHtmlElementById(Constants.NOVO_CATEGORIA);
+		for(HtmlOption option : select.getOptions())
+		{
+			if(!option.getValueAttribute().equalsIgnoreCase(""))
+			{
+				result.put(Integer.getInteger(option.getValueAttribute()), option.getText());
+			}
+		}
+		
+		return result;
+	}
+	
+	@Override
 	public void insert(Evento evento) 
 	{
 		doLogin("hsaraujo", "12345678");
+		goToListPage();
+		goToNewPage();
 	}
 	
 	private synchronized List<Evento> getAllEvents()
@@ -129,6 +173,19 @@ public class EventoService implements IEventoService
 					page = anchor.click();
 			}
 			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	private synchronized void goToNewPage()
+	{
+		try
+		{
+			HtmlInput novoInput = page.getHtmlElementById(Constants.LISTA_NOVO);
+			page = novoInput.click();
 		}
 		catch(Exception e)
 		{

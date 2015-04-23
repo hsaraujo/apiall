@@ -32,7 +32,7 @@ public class IndexController
 		List<Evento> eventos = eventoService.getAll();
 		for(Evento evento : eventos)
 		{			
-			response += sdf.format(evento.getInicio()) + "<br/>";
+			response = response + sdf.format(evento.getInicio()) + "<br/>";
 		}
 		
 		return response;

@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import br.com.multe.apontamento.model.Evento;
 import br.com.multe.apontamento.service.IEventoService;
 
@@ -30,11 +33,6 @@ public class IndexController
 		String response = "";
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		List<Evento> eventos = eventoService.getAll();
-		for(Evento evento : eventos)
-		{			
-			response = response + sdf.format(evento.getInicio()) + "<br/>";
-		}
-		
-		return response;
+		return new GsonBuilder().create().toJson(eventos);
 	}
 }

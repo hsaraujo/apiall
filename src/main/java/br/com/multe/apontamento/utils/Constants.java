@@ -33,10 +33,10 @@ public class Constants
 	
 	public static final String NOVO_OS = "ctl00_boxPrincipal_cphConteudo_ddlOrdem";
 	public static final String NOVO_CATEGORIA = "ctl00_boxPrincipal_cphConteudo_ddlCategoria";
-	public static final String NOVO_DATA = "";
-	public static final String NOVO_INICIO = "";
-	public static final String NOVO_FIM = "";
-	public static final String NOVO_DESCRICAO = "";
-	public static final String NOVO_BOTAO = "";
+	public static final String NOVO_DATA = "ctl00_boxPrincipal_cphConteudo_txtDataApontamento";
+	public static final String NOVO_INICIO = "ctl00_boxPrincipal_cphConteudo_txtHoraInicial";
+	public static final String NOVO_FIM = "ctl00_boxPrincipal_cphConteudo_txtHoraFinal";
+	public static final String NOVO_DESCRICAO = "ctl00_boxPrincipal_cphConteudo_txtDsc";
+	public static final String NOVO_BOTAO = "ctl00_boxPrincipal_cphConteudo_btnSalvar";
 }
 

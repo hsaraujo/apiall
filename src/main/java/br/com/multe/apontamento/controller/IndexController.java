@@ -1,7 +1,8 @@
 package br.com.multe.apontamento.controller;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,26 +37,27 @@ public class IndexController
 	@RequestMapping(value = "/novo", method = RequestMethod.GET)
 	public @ResponseBody String prepareNovo()
 	{
-		Map<Integer, String> os = eventoService.getOs();
-		Map<Integer, String> categorias = eventoService.getCategorias();
+		List<String> os = eventoService.getOs();
+		List<String> categorias = eventoService.getCategorias();
 		
-		for (Integer key : os.keySet()) {
-            
-            //Capturamos o valor a partir da chave
-            String value = os.get(key);
-            System.out.println(key + " = " + value);
-		}
+		return new GsonBuilder().create().toJson(os);
+	}
+	
+	@RequestMapping(value = "/novo", method = RequestMethod.POST)
+	public @ResponseBody String createNovo()
+	{
+		List<String> os = eventoService.getOs();
+		List<String> categorias = eventoService.getCategorias();
 		
-		System.out.println("-----------");
+		Evento evento = new Evento();
+		evento.setOs(os.get(1));
+		evento.setCategoria(categorias.get(1));
+		evento.setDescricao("testeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+		evento.setInicio(new Date());
+		evento.setFim(new Date());
 		
-		for (Integer key : categorias.keySet()) {
-            
-            //Capturamos o valor a partir da chave
-            String value = categorias.get(key);
-            System.out.println(key + " = " + value);
-		}
+		eventoService.insert(evento);
 		
-		return "";
-//		return new GsonBuilder().create().toJson(eventos);
+		return new GsonBuilder().create().toJson(evento);
 	}
 }

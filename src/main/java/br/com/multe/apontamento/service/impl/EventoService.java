@@ -47,49 +47,83 @@ public class EventoService implements IEventoService
 	}
 	
 	@Override
-	public Map<Integer, String> getOs() 
+	public List<String> getOs() 
 	{
 		doLogin("hsaraujo", "12345678");
 		goToListPage();
 		goToNewPage();
 		
-		Map<Integer, String> result = new HashMap<Integer, String>();
+		return getTextsFromCombo(Constants.NOVO_OS);
+	}
+	
+	@Override
+	public List<String> getCategorias() 
+	{			
+		return getTextsFromCombo(Constants.NOVO_CATEGORIA);
+	}
+	
+	private List<String> getTextsFromCombo(String idCombo)
+	{
+		List<String> result = new ArrayList<String>();
 		
-		HtmlSelect select = page.getHtmlElementById(Constants.NOVO_OS);
+		HtmlSelect select = page.getHtmlElementById(idCombo);
 		for(HtmlOption option : select.getOptions())
 		{
 			if(!option.getValueAttribute().equalsIgnoreCase(""))
 			{
-				result.put(Integer.valueOf(option.getAttribute("value")), option.getText());
+				result.add(option.getText());
 			}
 		}
 		
 		return result;
 	}
 	
-	@Override
-	public Map<Integer, String> getCategorias() 
+	private int getValueFromComboByText(String idCombo, String textToSearch)
 	{
-		Map<Integer, String> result = new HashMap<Integer, String>();
-		
-		HtmlSelect select = page.getHtmlElementById(Constants.NOVO_CATEGORIA);
+		HtmlSelect select = page.getHtmlElementById(idCombo);
 		for(HtmlOption option : select.getOptions())
 		{
-			if(!option.getValueAttribute().equalsIgnoreCase(""))
-			{
-				result.put(Integer.valueOf(option.getAttribute("value")), option.getText());
-			}
+			if(option.getText().equalsIgnoreCase(textToSearch))
+				return Integer.parseInt(option.getValueAttribute());
 		}
 		
-		return result;
+		return 0;
 	}
 	
 	@Override
 	public void insert(Evento evento) 
 	{
-		doLogin("hsaraujo", "12345678");
-		goToListPage();
-		goToNewPage();
+		try
+		{
+//			doLogin("hsaraujo", "12345678");
+//			goToListPage();
+//			goToNewPage();
+			
+			int valOs = getValueFromComboByText(Constants.NOVO_OS, evento.getOs());
+			int valCategoria = getValueFromComboByText(Constants.NOVO_CATEGORIA, evento.getCategoria());
+			
+			SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
+			SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
+			
+			String data = sdfDate.format(evento.getInicio());
+			String inicio = sdfTime.format(evento.getInicio());
+			String fim = sdfTime.format(evento.getFim());
+			
+			page.getElementById(Constants.NOVO_OS).setNodeValue(String.valueOf(valOs));
+			page.getElementById(Constants.NOVO_CATEGORIA).setNodeValue(String.valueOf(valCategoria));
+			page.getElementById(Constants.NOVO_DATA).setNodeValue(String.valueOf(data));
+			page.getElementById(Constants.NOVO_INICIO).setNodeValue(String.valueOf(inicio));
+			page.getElementById(Constants.NOVO_FIM).setNodeValue(String.valueOf(fim));
+			
+			HtmlInput btnNovo = (HtmlInput) page.getElementById(Constants.NOVO_BOTAO);
+			page = btnNovo.click();
+			
+			System.out.println(page);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	private synchronized List<Evento> getAllEvents()

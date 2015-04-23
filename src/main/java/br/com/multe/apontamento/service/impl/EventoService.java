@@ -109,16 +109,25 @@ public class EventoService implements IEventoService
 			String inicio = sdfTime.format(evento.getInicio());
 			String fim = sdfTime.format(evento.getFim());
 			
-			page.getElementById(Constants.NOVO_OS).setNodeValue(String.valueOf(valOs));
-			page.getElementById(Constants.NOVO_CATEGORIA).setNodeValue(String.valueOf(valCategoria));
-			page.getElementById(Constants.NOVO_DATA).setNodeValue(String.valueOf(data));
-			page.getElementById(Constants.NOVO_INICIO).setNodeValue(String.valueOf(inicio));
-			page.getElementById(Constants.NOVO_FIM).setNodeValue(String.valueOf(fim));
+			HtmlInput input = (HtmlInput) page.getElementById(Constants.NOVO_OS);
+			input.setValueAttribute(String.valueOf(valOs));
 			
-			HtmlInput btnNovo = (HtmlInput) page.getElementById(Constants.NOVO_BOTAO);
-			page = btnNovo.click();
+			input = (HtmlInput) page.getElementById(Constants.NOVO_CATEGORIA);
+			input.setValueAttribute(String.valueOf(valCategoria));
 			
-			System.out.println(page);
+			input = (HtmlInput) page.getElementById(Constants.NOVO_DATA);
+			input.setValueAttribute(String.valueOf(data));
+			
+			input = (HtmlInput) page.getElementById(Constants.NOVO_INICIO);
+			input.setValueAttribute(String.valueOf(inicio));
+			
+			input = (HtmlInput) page.getElementById(Constants.NOVO_FIM);
+			input.setValueAttribute(String.valueOf(fim));
+			
+			input = (HtmlInput) page.getElementById(Constants.NOVO_BOTAO);
+			page = input.click();
+			
+			System.out.println(page.asText());
 		}
 		catch(Exception e)
 		{

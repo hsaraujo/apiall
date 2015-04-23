@@ -23,6 +23,7 @@ public class IndexController
 	@RequestMapping(value = "/apontamento", method = RequestMethod.GET)
 	public @ResponseBody String allApontamentos()
 	{
+		eventoService.getAll();
 		return "";
 	}
 }

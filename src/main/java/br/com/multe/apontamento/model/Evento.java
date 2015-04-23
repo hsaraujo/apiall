@@ -5,21 +5,30 @@ import java.util.Date;
 public class Evento 
 {
 	private long id;
-	private Funcionario funcionario;
-	private Os os;
-	private Categoria categoria;
+	private String funcionario;
+	private String os;
+	private String categoria;
 	private String descricao;
 	private Date inicio, fim;
 	
 	public Evento() { }
 	
-	public Evento(long id, Funcionario funcionario, Os os, Categoria categoria, String descricao, Date inicio, Date fim)
+	public Evento(long id, String funcionario, String os, String categoria, String descricao, Date inicio, Date fim)
 	{
 		this.id = id;
 		this.funcionario = funcionario;
 		this.os = os;
 		this.categoria = categoria;
 		this.descricao = descricao;
+		this.inicio = inicio;
+		this.fim = fim;		
+	}
+	
+	public Evento(long id, String funcionario, String os, Date inicio, Date fim)
+	{
+		this.id = id;
+		this.funcionario = funcionario;
+		this.os = os;
 		this.inicio = inicio;
 		this.fim = fim;		
 		
@@ -33,27 +42,27 @@ public class Evento
 		this.id = id;
 	}
 
-	public Funcionario getFuncionario() {
+	public String getFuncionario() {
 		return funcionario;
 	}
 
-	public void setFuncionario(Funcionario funcionario) {
+	public void setFuncionario(String funcionario) {
 		this.funcionario = funcionario;
 	}
 
-	public Os getOs() {
+	public String getOs() {
 		return os;
 	}
 
-	public void setOs(Os os) {
+	public void setOs(String os) {
 		this.os = os;
 	}
 
-	public Categoria getCategoria() {
+	public String getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(Categoria categoria) {
+	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
 

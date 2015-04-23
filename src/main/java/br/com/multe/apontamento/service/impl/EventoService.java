@@ -60,7 +60,7 @@ public class EventoService implements IEventoService
 		{
 			if(!option.getValueAttribute().equalsIgnoreCase(""))
 			{
-				result.put(Integer.getInteger(option.getValueAttribute()), option.getText());
+				result.put(Integer.valueOf(option.getAttribute("value")), option.getText());
 			}
 		}
 		
@@ -77,7 +77,7 @@ public class EventoService implements IEventoService
 		{
 			if(!option.getValueAttribute().equalsIgnoreCase(""))
 			{
-				result.put(Integer.getInteger(option.getValueAttribute()), option.getText());
+				result.put(Integer.valueOf(option.getAttribute("value")), option.getText());
 			}
 		}
 		

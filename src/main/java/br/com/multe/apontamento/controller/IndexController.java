@@ -38,6 +38,23 @@ public class IndexController
 	{
 		Map<Integer, String> os = eventoService.getOs();
 		Map<Integer, String> categorias = eventoService.getCategorias();
+		
+		for (Integer key : os.keySet()) {
+            
+            //Capturamos o valor a partir da chave
+            String value = os.get(key);
+            System.out.println(key + " = " + value);
+		}
+		
+		System.out.println("-----------");
+		
+		for (Integer key : categorias.keySet()) {
+            
+            //Capturamos o valor a partir da chave
+            String value = categorias.get(key);
+            System.out.println(key + " = " + value);
+		}
+		
 		return "";
 //		return new GsonBuilder().create().toJson(eventos);
 	}

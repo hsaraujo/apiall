@@ -13,7 +13,6 @@ import br.com.multe.apontamento.utils.Constants;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
@@ -21,7 +20,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.gargoylesoftware.htmlunit.html.HtmlTableCell;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
-import com.gargoylesoftware.htmlunit.javascript.host.Node;
 
 @Service
 public class EventoService implements IEventoService
@@ -33,7 +31,7 @@ public class EventoService implements IEventoService
 	@Override
 	public List<Evento> getAll() 
 	{
-		doLogin();
+		doLogin("hsaraujo", "12345678");
 		goToListPage();
 		doFilterInListPage();
 		
@@ -42,6 +40,12 @@ public class EventoService implements IEventoService
 		eventos = getAllEvents();
 		
 		return eventos;
+	}
+	
+	@Override
+	public void insert(Evento evento) 
+	{
+		doLogin("hsaraujo", "12345678");
 	}
 	
 	private synchronized List<Evento> getAllEvents()
@@ -93,13 +97,7 @@ public class EventoService implements IEventoService
 		try
 		{
 			HtmlInput deInput = page.getHtmlElementById(Constants.LISTA_DE);
-			HtmlInput clone = (HtmlInput) deInput.cloneNode(true);
-//			DomNode parentDeInput = deInput.getParentNode();
-			deInput.remove();
-			page.getHtmlElementById(Constants.LISTA_LBL_PERIODO).insertBefore(clone);
-//			parentDeInput.appendChild(clone);
-//			page.appendChild(clone);
-			clone.setValueAttribute("01/04/2015");
+			deInput.setValueAttribute("01/04/2015");
 			
 //			HtmlInput ateInput = page.getHtmlElementById(Constants.LISTA_ATE);
 //			ateInput.remove();
@@ -107,10 +105,10 @@ public class EventoService implements IEventoService
 //			ateInput.setValueAttribute("23/04/2015");
 			
 			HtmlInput allInput = page.getHtmlElementById(Constants.LISTA_ALL);
-			allInput.setAttribute("checked", "true");
+			page = allInput.click();
 			
 			HtmlInput filtroInput = page.getHtmlElementById(Constants.LISTA_FILTRO);
-			filtroInput.click();
+			page = filtroInput.click();
 			
 			System.out.println(page.asText());
 			
@@ -138,15 +136,15 @@ public class EventoService implements IEventoService
 		}
 	}
 	
-	private synchronized void doLogin()
+	private synchronized void doLogin(String login, String senha)
 	{
 		try
 		{
 			page = webClient.getPage(Constants.LOGIN_URL);
 			HtmlInput usuarioInput = page.getHtmlElementById(Constants.LOGIN_USUARIO);
-			usuarioInput.setValueAttribute("hsaraujo");
+			usuarioInput.setValueAttribute(login);
 			HtmlInput senhaInput = page.getHtmlElementById(Constants.LOGIN_SENHA);
-			senhaInput.setValueAttribute("12345678");
+			senhaInput.setValueAttribute(senha);
 			HtmlInput botaoInput = page.getHtmlElementById(Constants.LOGIN_BOTAO);
 			page = botaoInput.click();
 
@@ -156,5 +154,5 @@ public class EventoService implements IEventoService
 			e.printStackTrace();
 		}
 	}
-	
+
 }

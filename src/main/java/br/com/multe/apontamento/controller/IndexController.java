@@ -1,6 +1,5 @@
 package br.com.multe.apontamento.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import br.com.multe.apontamento.model.Evento;
 import br.com.multe.apontamento.service.IEventoService;
+
+import com.google.gson.GsonBuilder;
 
 @Controller
 public class IndexController 
@@ -30,8 +28,6 @@ public class IndexController
 	@RequestMapping(value = "/apontamento", method = RequestMethod.GET)
 	public @ResponseBody String allApontamentos()
 	{
-		String response = "";
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		List<Evento> eventos = eventoService.getAll();
 		return new GsonBuilder().create().toJson(eventos);
 	}

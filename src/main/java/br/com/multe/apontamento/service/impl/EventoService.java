@@ -25,7 +25,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 public class EventoService implements IEventoService
 {
 
-	private WebClient webClient = new WebClient(BrowserVersion.CHROME);
+	private WebClient webClient = new WebClient(BrowserVersion.FIREFOX_24);
 	private HtmlPage page;
 	
 	@Override

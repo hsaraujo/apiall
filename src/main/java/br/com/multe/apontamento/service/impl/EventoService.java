@@ -124,6 +124,9 @@ public class EventoService implements IEventoService
 			HtmlInput inputFim = (HtmlInput) page.getElementById(Constants.NOVO_FIM);
 			inputFim.setValueAttribute(String.valueOf(fim));
 			
+			HtmlInput inputDescricao = (HtmlInput) page.getElementById(Constants.NOVO_DESCRICAO);
+			inputDescricao.setValueAttribute(evento.getDescricao());
+			
 			HtmlInput inputBotao = (HtmlInput) page.getElementById(Constants.NOVO_BOTAO);
 			page = inputBotao.click();
 			

@@ -13,6 +13,7 @@ import br.com.multe.apontamento.utils.Constants;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
@@ -20,6 +21,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.gargoylesoftware.htmlunit.html.HtmlTableCell;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
+import com.gargoylesoftware.htmlunit.javascript.host.Node;
 
 @Service
 public class EventoService implements IEventoService
@@ -91,16 +93,26 @@ public class EventoService implements IEventoService
 		try
 		{
 			HtmlInput deInput = page.getHtmlElementById(Constants.LISTA_DE);
-			deInput.setValueAttribute("01/04/2015");
+			HtmlInput clone = (HtmlInput) deInput.cloneNode(true);
+//			DomNode parentDeInput = deInput.getParentNode();
+			deInput.remove();
+			page.getHtmlElementById(Constants.LISTA_LBL_PERIODO).insertBefore(clone);
+//			parentDeInput.appendChild(clone);
+//			page.appendChild(clone);
+			clone.setValueAttribute("01/04/2015");
 			
-			HtmlInput ateInput = page.getHtmlElementById(Constants.LISTA_ATE);
-			ateInput.setValueAttribute("23/04/2015");
+//			HtmlInput ateInput = page.getHtmlElementById(Constants.LISTA_ATE);
+//			ateInput.remove();
+//			page.appendChild(ateInput);
+//			ateInput.setValueAttribute("23/04/2015");
 			
 			HtmlInput allInput = page.getHtmlElementById(Constants.LISTA_ALL);
-			allInput.click();
+			allInput.setAttribute("checked", "true");
 			
 			HtmlInput filtroInput = page.getHtmlElementById(Constants.LISTA_FILTRO);
 			filtroInput.click();
+			
+			System.out.println(page.asText());
 			
 		}
 		catch(Exception e)

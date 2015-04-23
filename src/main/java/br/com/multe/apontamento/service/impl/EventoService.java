@@ -24,6 +24,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.gargoylesoftware.htmlunit.html.HtmlTableCell;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
+import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 
 @Service
 public class EventoService implements IEventoService
@@ -124,8 +125,8 @@ public class EventoService implements IEventoService
 			HtmlInput inputFim = (HtmlInput) page.getElementById(Constants.NOVO_FIM);
 			inputFim.setValueAttribute(String.valueOf(fim));
 			
-			HtmlInput inputDescricao = (HtmlInput) page.getElementById(Constants.NOVO_DESCRICAO);
-			inputDescricao.setValueAttribute(evento.getDescricao());
+			HtmlTextArea inputDescricao = (HtmlTextArea) page.getElementById(Constants.NOVO_DESCRICAO);
+			inputDescricao.setText(evento.getDescricao());
 			
 			HtmlInput inputBotao = (HtmlInput) page.getElementById(Constants.NOVO_BOTAO);
 			page = inputBotao.click();

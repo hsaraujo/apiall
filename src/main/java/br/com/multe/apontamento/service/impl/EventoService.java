@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.multe.apontamento.model.Evento;
@@ -21,6 +23,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
+import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.gargoylesoftware.htmlunit.html.HtmlTableCell;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
@@ -48,17 +51,25 @@ public class EventoService implements IEventoService
 	}
 	
 	@Override
-	public List<String> getOs() 
+	public Map<String, List<String>> getOsECategorias()
 	{
 		doLogin("hsaraujo", "12345678");
 		goToListPage();
 		goToNewPage();
 		
+		Map<String, List<String>> map = new HashMap<String, List<String>>();
+		map.put("os", getOs());
+		map.put("categoria", getCategorias());
+		
+		return map;
+	}
+	
+	private List<String> getOs() 
+	{
 		return getTextsFromCombo(Constants.NOVO_OS);
 	}
 	
-	@Override
-	public List<String> getCategorias() 
+	private List<String> getCategorias() 
 	{			
 		return getTextsFromCombo(Constants.NOVO_CATEGORIA);
 	}
@@ -92,7 +103,7 @@ public class EventoService implements IEventoService
 	}
 	
 	@Override
-	public void insert(Evento evento) 
+	public ResponseEntity<String> insert(Evento evento) 
 	{
 		try
 		{
@@ -123,7 +134,8 @@ public class EventoService implements IEventoService
 			inputInicio.setValueAttribute(String.valueOf(inicio));
 			
 			HtmlInput inputFim = (HtmlInput) page.getElementById(Constants.NOVO_FIM);
-			inputFim.setValueAttribute(String.valueOf(fim));
+//			inputFim.setValueAttribute(String.valueOf(fim));
+			inputFim.setValueAttribute("21:50");
 			
 			HtmlTextArea inputDescricao = (HtmlTextArea) page.getElementById(Constants.NOVO_DESCRICAO);
 			inputDescricao.setText(evento.getDescricao());
@@ -131,11 +143,23 @@ public class EventoService implements IEventoService
 			HtmlInput inputBotao = (HtmlInput) page.getElementById(Constants.NOVO_BOTAO);
 			page = inputBotao.click();
 			
-			System.out.println(page.asText());
+			HtmlSpan spanError = (HtmlSpan) page.getElementById(Constants.NOVO_ERRO);
+			
+			if(spanError != null)
+			{
+				String message = spanError.getFirstChild().getTextContent();
+
+				return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
+			}
+			
+			return new ResponseEntity<String>("Apontamento criado", HttpStatus.OK);
+			
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			
+			return new ResponseEntity<String>("Erro não esperado", HttpStatus.BAD_REQUEST);
 		}
 	}
 	

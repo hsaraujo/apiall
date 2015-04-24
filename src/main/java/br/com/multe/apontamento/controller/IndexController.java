@@ -40,7 +40,7 @@ public class IndexController
 		return new GsonBuilder().create().toJson(eventos);
 	}
 	
-	@RequestMapping(value = "/novo", method = RequestMethod.GET)
+	@RequestMapping(value = "/prepara", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<String> prepareNovo(@RequestHeader("Authorization") String authorization,
 															@RequestBody String body)
 	{
@@ -63,7 +63,7 @@ public class IndexController
 		}
 	}
 	
-	@RequestMapping(value = "/novo", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = "/apontamento", method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody ResponseEntity<String> createNovo(@RequestHeader("Authorization") String authorization,
 															@RequestBody String body)
 	{

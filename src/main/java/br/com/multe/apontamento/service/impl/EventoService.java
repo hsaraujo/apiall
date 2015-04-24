@@ -188,36 +188,37 @@ public class EventoService implements IEventoService
 	
 	private synchronized List<Evento> getAllEvents()
 	{
-		HtmlTable table = page.getHtmlElementById(Constants.LISTA_TABELA);
-		List<HtmlTableRow> rows = table.getBodies().get(0).getRows();
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-
 		List<Evento> eventos = new ArrayList<Evento>();
-		
-		for(int i = 1; i < rows.size(); i++)
+		try
 		{
-			HtmlTableRow row = rows.get(i);
+			HtmlTable table = page.getHtmlElementById(Constants.LISTA_TABELA);
+			List<HtmlTableRow> rows = table.getBodies().get(0).getRows();
 			
-			String data = row.getCell(0).asText();
-			String funcionario = row.getCell(1).asText();
-			String inicio = row.getCell(2).asText();
-			String fim = row.getCell(3).asText();
-			String os = row.getCell(6).asText();
-			long id = getIdFromCell(row.getCell(7));
-
-			Date dtInicio = new Date();
-			Date dtFim = new Date();
-			try
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+	
+			for(int i = 1; i < rows.size(); i++)
 			{
-				dtInicio = sdf.parse(data + " " + inicio);
-				dtFim = sdf.parse(data + " " + fim);
-			}catch (Exception e ) { }
-			
-			Evento evento = new Evento(id, funcionario, os, dtInicio, dtFim);
-			eventos.add(evento);
-		}
-		
+				HtmlTableRow row = rows.get(i);
+				
+				String data = row.getCell(0).asText();
+				String funcionario = row.getCell(1).asText();
+				String inicio = row.getCell(2).asText();
+				String fim = row.getCell(3).asText();
+				String os = row.getCell(6).asText();
+				long id = getIdFromCell(row.getCell(7));
+	
+				Date dtInicio = new Date();
+				Date dtFim = new Date();
+				try
+				{
+					dtInicio = sdf.parse(data + " " + inicio);
+					dtFim = sdf.parse(data + " " + fim);
+				}catch (Exception e ) { }
+				
+				Evento evento = new Evento(id, funcionario, os, dtInicio, dtFim);
+				eventos.add(evento);
+			}
+		}catch(Exception e){ }
 		return eventos;
 	}
 	

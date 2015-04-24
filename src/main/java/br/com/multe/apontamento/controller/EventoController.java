@@ -40,7 +40,7 @@ public class EventoController
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		
 		List<Evento> eventos = eventoService.getEvents(credentials);
-		return new ResponseEntity<String>(new GsonBuilder().create().toJson(eventos), HttpStatus.OK);
+		return new ResponseEntity<String>(new GsonBuilder().setDateFormat("dd/MM/yyyy HH:mm").create().toJson(eventos), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST, consumes = "application/json")
@@ -56,7 +56,7 @@ public class EventoController
 			return new ResponseEntity<String>("JSON formatado errado", HttpStatus.BAD_REQUEST);
 		
 		List<Evento> eventos = eventoService.getEventsWithFilter(credentials, dates[0], dates[1]);
-		return new ResponseEntity<String>(new GsonBuilder().create().toJson(eventos), HttpStatus.OK);
+		return new ResponseEntity<String>(new GsonBuilder().setDateFormat("dd/MM/yyyy HH:mm").create().toJson(eventos), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)

@@ -17,4 +17,8 @@ public interface IEventoService
 	public Map<String, List<String>> getOsECategorias(String[] credentials);
 	
 	public ResponseEntity<String> insert(String[] credentials, Evento evento);
+	
+	public ResponseEntity<String> edit(String[] credentials, Evento evento);
+	
+	public ResponseEntity<String> delete(String[] credentials, int id);
 }

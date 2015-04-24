@@ -2,7 +2,6 @@ package br.com.multe.apontamento.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -321,6 +320,18 @@ public class EventoService implements IEventoService
 		{
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public ResponseEntity<String> edit(String[] credentials, Evento evento) 
+	{
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<String> delete(String[] credentials, int id) 
+	{
+		return null;
 	}
 
 }

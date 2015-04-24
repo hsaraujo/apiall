@@ -26,8 +26,8 @@ import com.google.gson.GsonBuilder;
 
 @SuppressWarnings("restriction")
 @Controller
-@RequestMapping("/apontamento")
-public class IndexController 
+@RequestMapping("/api")
+public class EventoController 
 {
 	@Autowired
 	IEventoService eventoService;
@@ -59,8 +59,8 @@ public class IndexController
 		return new ResponseEntity<String>(new GsonBuilder().create().toJson(eventos), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/novo", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<String> prepareNovo(@RequestHeader("Authorization") String authorization)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<String> prepare(@RequestHeader("Authorization") String authorization)
 	{
 		String[] credentials = getLoginAndPasswordFromHeader(authorization);
 		if(credentials == null)
@@ -81,8 +81,8 @@ public class IndexController
 		}
 	}
 	
-	@RequestMapping(value = "/novo", method = RequestMethod.POST, consumes = "application/json")
-	public @ResponseBody ResponseEntity<String> createNovo(@RequestHeader("Authorization") String authorization,
+	@RequestMapping(value = "/", method = RequestMethod.POST, consumes = "application/json")
+	public @ResponseBody ResponseEntity<String> create(@RequestHeader("Authorization") String authorization,
 															@RequestBody String body)
 	{
 		String[] credentials = getLoginAndPasswordFromHeader(authorization);
@@ -97,6 +97,17 @@ public class IndexController
 			return eventoService.insert(credentials, evento);
 	}
 
+	@RequestMapping(value = "/", method = RequestMethod.PUT, consumes = "application/json")
+	public @ResponseBody ResponseEntity<String> edit(@RequestHeader("Authorization") String authorization,
+													@RequestBody String body)
+	{
+		String[] credentials = getLoginAndPasswordFromHeader(authorization);
+		if(credentials == null)
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+		
+		return null;
+	}
+	
 	private static String[] getLoginAndPasswordFromHeader(String authorization)
 	{
 		try

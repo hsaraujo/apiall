@@ -1,5 +1,6 @@
 package br.com.multe.apontamento.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +10,9 @@ import br.com.multe.apontamento.model.Evento;
 
 public interface IEventoService 
 {
-	public List<Evento> getAll(String[] credentials);
+	public List<Evento> getEvents(String[] credentials);
+	
+	public List<Evento> getEventsWithFilter(String[] credentials, Date inicio, Date fim);
 
 	public Map<String, List<String>> getOsECategorias(String[] credentials);
 	

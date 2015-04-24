@@ -1,6 +1,7 @@
 package br.com.multe.apontamento.controller;
 
 import java.nio.charset.Charset;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,24 +26,41 @@ import com.google.gson.GsonBuilder;
 
 @SuppressWarnings("restriction")
 @Controller
+@RequestMapping("/apontamento")
 public class IndexController 
 {
 	@Autowired
 	IEventoService eventoService;
 	
-	@RequestMapping(value = "/apontamento", method = RequestMethod.GET)
-	public @ResponseBody String allApontamentos(@RequestHeader("Authorization") String authorization,
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<String> allApontamentos(@RequestHeader("Authorization") String authorization)
+	{
+		String[] credentials = getLoginAndPasswordFromHeader(authorization);
+		if(credentials == null)
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+		
+		List<Evento> eventos = eventoService.getEvents(credentials);
+		return new ResponseEntity<String>(new GsonBuilder().create().toJson(eventos), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/search", method = RequestMethod.POST, consumes = "application/json")
+	public @ResponseBody ResponseEntity<String> searchWithFilter(@RequestHeader("Authorization") String authorization,
 												@RequestBody String body)
 	{
 		String[] credentials = getLoginAndPasswordFromHeader(authorization);
+		if(credentials == null)
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		
-		List<Evento> eventos = eventoService.getAll(credentials);
-		return new GsonBuilder().create().toJson(eventos);
+		Date[] dates = JsonHelper.getDatesFilterFromJson(body);
+		if(dates == null)
+			return new ResponseEntity<String>("JSON formatado errado", HttpStatus.BAD_REQUEST);
+		
+		List<Evento> eventos = eventoService.getEventsWithFilter(credentials, dates[0], dates[1]);
+		return new ResponseEntity<String>(new GsonBuilder().create().toJson(eventos), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/prepara", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<String> prepareNovo(@RequestHeader("Authorization") String authorization,
-															@RequestBody String body)
+	@RequestMapping(value = "/novo", method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<String> prepareNovo(@RequestHeader("Authorization") String authorization)
 	{
 		String[] credentials = getLoginAndPasswordFromHeader(authorization);
 		if(credentials == null)
@@ -63,7 +81,7 @@ public class IndexController
 		}
 	}
 	
-	@RequestMapping(value = "/apontamento", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = "/novo", method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody ResponseEntity<String> createNovo(@RequestHeader("Authorization") String authorization,
 															@RequestBody String body)
 	{

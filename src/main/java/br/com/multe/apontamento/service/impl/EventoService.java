@@ -2,6 +2,7 @@ package br.com.multe.apontamento.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -37,11 +38,25 @@ public class EventoService implements IEventoService
 	private HtmlPage page;
 	
 	@Override
-	public List<Evento> getAll(String[] credentials) 
+	public List<Evento> getEvents(String[] credentials) 
 	{
 		doLogin(credentials);
 		goToListPage();
 		doFilterInListPage();
+		
+		List<Evento> eventos = new ArrayList<Evento>();
+		
+		eventos = getAllEvents();
+		
+		return eventos;
+	}
+	
+	@Override
+	public List<Evento> getEventsWithFilter(String[] credentials, Date inicio, Date fim)
+	{
+		doLogin(credentials);
+		goToListPage();
+		doFilterInListPage(inicio, fim);
 		
 		List<Evento> eventos = new ArrayList<Evento>();
 		
@@ -219,29 +234,42 @@ public class EventoService implements IEventoService
 	{
 		try
 		{
-			HtmlInput deInput = page.getHtmlElementById(Constants.LISTA_DE);
-			deInput.setValueAttribute("01/04/2015");
+			HtmlInput allInput = page.getHtmlElementById(Constants.LISTA_ALL);
+			page = allInput.click();
 			
-//			HtmlInput ateInput = page.getHtmlElementById(Constants.LISTA_ATE);
-//			ateInput.remove();
-//			page.appendChild(ateInput);
-//			ateInput.setValueAttribute("23/04/2015");
+			HtmlInput filtroInput = page.getHtmlElementById(Constants.LISTA_FILTRO);
+			page = filtroInput.click();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	private synchronized void doFilterInListPage(Date inicio, Date fim)
+	{
+		try
+		{
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			
+			HtmlInput deInput = page.getHtmlElementById(Constants.LISTA_DE);
+			deInput.setValueAttribute(sdf.format(inicio));
+			
+			HtmlInput ateInput = page.getHtmlElementById(Constants.LISTA_ATE);
+			ateInput.setValueAttribute(sdf.format(fim));
 			
 			HtmlInput allInput = page.getHtmlElementById(Constants.LISTA_ALL);
 			page = allInput.click();
 			
 			HtmlInput filtroInput = page.getHtmlElementById(Constants.LISTA_FILTRO);
 			page = filtroInput.click();
-			
-			System.out.println(page.asText());
-			
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-
+	
 	private synchronized void goToListPage()
 	{
 		try

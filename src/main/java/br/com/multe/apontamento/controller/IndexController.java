@@ -63,7 +63,7 @@ public class IndexController
 		}
 	}
 	
-	@RequestMapping(value = "/novo", method = RequestMethod.POST)
+	@RequestMapping(value = "/novo", method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody ResponseEntity<String> createNovo(@RequestHeader("Authorization") String authorization,
 															@RequestBody String body)
 	{

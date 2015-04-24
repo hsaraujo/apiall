@@ -1,6 +1,6 @@
 package br.com.multe.apontamento.controller;
 
-import java.util.Date;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,15 +10,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import sun.misc.BASE64Decoder;
 import br.com.multe.apontamento.model.Evento;
 import br.com.multe.apontamento.service.IEventoService;
+import br.com.multe.apontamento.utils.JsonHelper;
 
 import com.google.gson.GsonBuilder;
 
+@SuppressWarnings("restriction")
 @Controller
 public class IndexController 
 {
@@ -26,18 +31,26 @@ public class IndexController
 	IEventoService eventoService;
 	
 	@RequestMapping(value = "/apontamento", method = RequestMethod.GET)
-	public @ResponseBody String allApontamentos()
+	public @ResponseBody String allApontamentos(@RequestHeader("Authorization") String authorization,
+												@RequestBody String body)
 	{
-		List<Evento> eventos = eventoService.getAll();
+		String[] credentials = getLoginAndPasswordFromHeader(authorization);
+		
+		List<Evento> eventos = eventoService.getAll(credentials);
 		return new GsonBuilder().create().toJson(eventos);
 	}
 	
 	@RequestMapping(value = "/novo", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<String> prepareNovo()
+	public @ResponseBody ResponseEntity<String> prepareNovo(@RequestHeader("Authorization") String authorization,
+															@RequestBody String body)
 	{
+		String[] credentials = getLoginAndPasswordFromHeader(authorization);
+		if(credentials == null)
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+		
 		Map<String, List<String>> mapa = new HashMap<String, List<String>>();
 		
-		mapa = eventoService.getOsECategorias();
+		mapa = eventoService.getOsECategorias(credentials);
 		
 		try
 		{
@@ -51,21 +64,38 @@ public class IndexController
 	}
 	
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
-	public @ResponseBody ResponseEntity<String> createNovo()
+	public @ResponseBody ResponseEntity<String> createNovo(@RequestHeader("Authorization") String authorization,
+															@RequestBody String body)
 	{
-		Map<String, List<String>> mapa = new HashMap<String, List<String>>();
+		String[] credentials = getLoginAndPasswordFromHeader(authorization);
+		if(credentials == null)
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		
-		mapa = eventoService.getOsECategorias();
+		Evento evento = JsonHelper.getEventoFromJson(body);
 		
-		Evento evento = new Evento();
-		evento.setOs(mapa.get("os").get(1));
-		evento.setCategoria(mapa.get("categoria").get(1));
-		evento.setDescricao("testeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-		evento.setInicio(new Date());
-		evento.setFim(new Date());
-		
-		return eventoService.insert(evento);
-		
+		if(evento == null)
+			return new ResponseEntity<String>("JSON formatado errado", HttpStatus.BAD_REQUEST);
+		else
+			return eventoService.insert(credentials, evento);
 	}
-	
+
+	private static String[] getLoginAndPasswordFromHeader(String authorization)
+	{
+		try
+		{
+			if (authorization != null && authorization.startsWith("Basic")) {
+		        String base64Credentials = authorization.substring("Basic".length()).trim();
+		        BASE64Decoder decoder = new BASE64Decoder();
+		        String credentials = new String(decoder.decodeBuffer(base64Credentials), Charset.forName("UTF-8"));
+		        final String[] values = credentials.split(":", 2);
+		        return values;
+			}
+	    else
+	    	return null;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
+	}
 }

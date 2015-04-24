@@ -9,9 +9,9 @@ import br.com.multe.apontamento.model.Evento;
 
 public interface IEventoService 
 {
-	public List<Evento> getAll();
+	public List<Evento> getAll(String[] credentials);
 
-	public Map<String, List<String>> getOsECategorias();
+	public Map<String, List<String>> getOsECategorias(String[] credentials);
 	
-	public ResponseEntity<String> insert(Evento evento);
+	public ResponseEntity<String> insert(String[] credentials, Evento evento);
 }

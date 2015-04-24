@@ -37,9 +37,9 @@ public class EventoService implements IEventoService
 	private HtmlPage page;
 	
 	@Override
-	public List<Evento> getAll() 
+	public List<Evento> getAll(String[] credentials) 
 	{
-		doLogin("hsaraujo", "12345678");
+		doLogin(credentials);
 		goToListPage();
 		doFilterInListPage();
 		
@@ -51,9 +51,9 @@ public class EventoService implements IEventoService
 	}
 	
 	@Override
-	public Map<String, List<String>> getOsECategorias()
+	public Map<String, List<String>> getOsECategorias(String[] credentials)
 	{
-		doLogin("hsaraujo", "12345678");
+		doLogin(credentials);
 		goToListPage();
 		goToNewPage();
 		
@@ -103,16 +103,25 @@ public class EventoService implements IEventoService
 	}
 	
 	@Override
-	public ResponseEntity<String> insert(Evento evento) 
+	public ResponseEntity<String> insert(String[] credentials, Evento evento) 
 	{
 		try
 		{
-//			doLogin("hsaraujo", "12345678");
-//			goToListPage();
-//			goToNewPage();
+			int valOs = 0;
+			int valCategoria = 0;
 			
-			int valOs = getValueFromComboByText(Constants.NOVO_OS, evento.getOs());
-			int valCategoria = getValueFromComboByText(Constants.NOVO_CATEGORIA, evento.getCategoria());
+			try
+			{
+				valOs = getValueFromComboByText(Constants.NOVO_OS, evento.getOs());
+				valCategoria = getValueFromComboByText(Constants.NOVO_CATEGORIA, evento.getCategoria());
+			}
+			catch(NullPointerException npe)
+			{
+				doLogin(credentials);
+				goToListPage();
+				goToNewPage();
+				insert(credentials, evento);
+			}
 			
 			SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 			SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
@@ -134,8 +143,7 @@ public class EventoService implements IEventoService
 			inputInicio.setValueAttribute(String.valueOf(inicio));
 			
 			HtmlInput inputFim = (HtmlInput) page.getElementById(Constants.NOVO_FIM);
-//			inputFim.setValueAttribute(String.valueOf(fim));
-			inputFim.setValueAttribute("21:50");
+			inputFim.setValueAttribute(String.valueOf(fim));
 			
 			HtmlTextArea inputDescricao = (HtmlTextArea) page.getElementById(Constants.NOVO_DESCRICAO);
 			inputDescricao.setText(evento.getDescricao());
@@ -264,10 +272,13 @@ public class EventoService implements IEventoService
 		}
 	}
 	
-	private synchronized void doLogin(String login, String senha)
+	private synchronized void doLogin(String[] credentials)
 	{
 		try
 		{
+			String login = credentials[0];
+			String senha = credentials[1];
+			
 			page = webClient.getPage(Constants.LOGIN_URL);
 			HtmlInput usuarioInput = page.getHtmlElementById(Constants.LOGIN_USUARIO);
 			usuarioInput.setValueAttribute(login);

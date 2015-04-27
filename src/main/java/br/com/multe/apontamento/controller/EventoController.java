@@ -59,7 +59,7 @@ public class EventoController
 		return new ResponseEntity<String>(new GsonBuilder().setDateFormat("dd/MM/yyyy HH:mm").create().toJson(eventos), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/novo", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<String> prepare(@RequestHeader("Authorization") String authorization)
 	{
 		String[] credentials = getLoginAndPasswordFromHeader(authorization);
@@ -81,7 +81,7 @@ public class EventoController
 		}
 	}
 	
-	@RequestMapping(value = "/", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = "/novo", method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody ResponseEntity<String> create(@RequestHeader("Authorization") String authorization,
 															@RequestBody String body)
 	{

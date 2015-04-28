@@ -32,7 +32,7 @@ public class EventoController
 	@Autowired
 	IEventoService eventoService;
 	
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	@RequestMapping(value = "/search", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	public @ResponseBody ResponseEntity<String> allApontamentos(@RequestHeader("Authorization") String authorization)
 	{
 		String[] credentials = getLoginAndPasswordFromHeader(authorization);
@@ -43,7 +43,7 @@ public class EventoController
 		return new ResponseEntity<String>(new GsonBuilder().setDateFormat("dd/MM/yyyy HH:mm").create().toJson(eventos), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/search", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = "/search", method = RequestMethod.POST, consumes = "application/json", produces = "application/json; charset=UTF-8")
 	public @ResponseBody ResponseEntity<String> searchWithFilter(@RequestHeader("Authorization") String authorization,
 												@RequestBody String body)
 	{
@@ -59,7 +59,7 @@ public class EventoController
 		return new ResponseEntity<String>(new GsonBuilder().setDateFormat("dd/MM/yyyy HH:mm").create().toJson(eventos), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/novo", method = RequestMethod.GET)
+	@RequestMapping(value = "/novo", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	public @ResponseBody ResponseEntity<String> prepare(@RequestHeader("Authorization") String authorization)
 	{
 		String[] credentials = getLoginAndPasswordFromHeader(authorization);
@@ -81,7 +81,7 @@ public class EventoController
 		}
 	}
 	
-	@RequestMapping(value = "/novo", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = "/novo", method = RequestMethod.POST, consumes = "application/json", produces = "application/json; charset=UTF-8")
 	public @ResponseBody ResponseEntity<String> create(@RequestHeader("Authorization") String authorization,
 															@RequestBody String body)
 	{

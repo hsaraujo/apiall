@@ -13,6 +13,12 @@
 
 	<dependencies>
 		<dependency>
+		    <groupId>com.newrelic.agent.java</groupId>
+		    <artifactId>newrelic-agent</artifactId>
+		    <version>current</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>1.9</version>
@@ -242,6 +248,18 @@
 	                        </artifactItems>
 	                    </configuration>
 	                </execution>
+	                <execution>
+			          <id>copy-new-relic</id>
+			          <phase>package</phase>
+			         <goals>
+			           <goal>copy-dependencies</goal>
+			          </goals>
+			          <configuration>
+			            <includeGroupIds>com.newrelic.agent.java</includeGroupIds>
+			            <includeArtifactIds>newrelic-agent</includeArtifactIds>
+			            <stripVersion>true</stripVersion>
+			          </configuration>
+			        </execution>
 	            </executions>
 	        </plugin>
         </plugins>

@@ -1,1 +1,1 @@
-{"mixinTypes":[],"builders":{"configs":{}},"runners":{"configs":{}},"description":"","type":"blank","attributes":{}}
+{"mixinTypes":[],"runners":{"configs":{"project://Copy%20of%20Tomcat%207.0%20%20%20Java%207":{"ram":1000,"variables":{"configurationType":"java/web"},"options":{}}},"default":"system:/java/web/tomcat7"},"builders":{"configs":{},"default":"maven"},"description":"","type":"maven","attributes":{"languageVersion":["1.6"],"language":["java"]}}

@@ -108,7 +108,7 @@ public class EventoController
 		return null;
 	}
 	
-	private static String[] getLoginAndPasswordFromHeader(String authorization)
+	private String[] getLoginAndPasswordFromHeader(String authorization)
 	{
 		try
 		{

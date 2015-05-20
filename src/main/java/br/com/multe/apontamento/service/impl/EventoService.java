@@ -37,7 +37,7 @@ public class EventoService implements IEventoService
 	private HtmlPage page;
 	
 	@Override
-	public List<Evento> getEvents(String[] credentials) 
+	public List<Evento> getEvents(String[] credentials)
 	{
 		doLogin(credentials);
 		goToListPage();

@@ -40,7 +40,7 @@ public class MakisService implements IMakisService
 		List<Makis> makisList = new ArrayList<Makis>();
 		try
 		{
-			HtmlTable table = (HtmlTable) page.getElementsByTagName("table").get(5);
+			HtmlTable table = (HtmlTable) page.getElementsByTagName("table").get(4);
 			List<HtmlTableRow> rows = table.getBodies().get(0).getRows();
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy");

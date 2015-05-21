@@ -1,4 +1,4 @@
-package br.com.apime.model;
+package br.com.apiall.model;
 
 public class Total 
 {

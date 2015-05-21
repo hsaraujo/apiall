@@ -1,4 +1,4 @@
-package br.com.apime.utils;
+package br.com.apiall.utils;
 
 import java.nio.charset.Charset;
 

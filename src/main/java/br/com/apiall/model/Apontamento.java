@@ -1,4 +1,4 @@
-package br.com.apime.model;
+package br.com.apiall.model;
 
 import java.util.Date;
 

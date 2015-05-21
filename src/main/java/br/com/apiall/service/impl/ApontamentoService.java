@@ -1,4 +1,4 @@
-package br.com.apime.service.impl;
+package br.com.apiall.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,9 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import br.com.apime.model.Apontamento;
-import br.com.apime.service.IApontamentoService;
-import br.com.apime.utils.ApontamentoConstants;
+import br.com.apiall.model.Apontamento;
+import br.com.apiall.service.IApontamentoService;
+import br.com.apiall.utils.ApontamentoConstants;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;

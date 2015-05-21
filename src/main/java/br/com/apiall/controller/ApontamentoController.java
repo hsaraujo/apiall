@@ -1,4 +1,4 @@
-package br.com.apime.controller;
+package br.com.apiall.controller;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import br.com.apime.model.Apontamento;
-import br.com.apime.service.IApontamentoService;
-import br.com.apime.utils.GeneralHelper;
-import br.com.apime.utils.JsonHelper;
+import br.com.apiall.model.Apontamento;
+import br.com.apiall.service.IApontamentoService;
+import br.com.apiall.utils.GeneralHelper;
+import br.com.apiall.utils.JsonHelper;
 
 import com.google.gson.GsonBuilder;
 

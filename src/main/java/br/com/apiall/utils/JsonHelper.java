@@ -1,9 +1,9 @@
-package br.com.apime.utils;
+package br.com.apiall.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import br.com.apime.model.Apontamento;
+import br.com.apiall.model.Apontamento;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

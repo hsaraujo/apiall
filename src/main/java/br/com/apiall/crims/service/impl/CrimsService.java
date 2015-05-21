@@ -2,6 +2,7 @@ package br.com.apiall.crims.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import br.com.apiall.crims.model.Perfil;
 import br.com.apiall.crims.service.ICrimsService;
 import br.com.apiall.utils.CrimsConstants;
 
@@ -18,6 +19,32 @@ public class CrimsService implements ICrimsService
 	private WebClient webClient = new WebClient(BrowserVersion.FIREFOX_24);
 	private HtmlPage page;
 	
+	public void getPerfil(String[] credentials)
+	{
+		doLogin(credentials);
+		
+		getPerfil();
+	}
+	
+	public Perfil getPerfil()
+	{
+		Perfil perfil = new Perfil();
+
+		String moral = page.getElementById(CrimsConstants.GERAL_ID_PERFIL).getElementsByTagName("span").get(0).getTextContent();
+		String respeito = page.getElementById(CrimsConstants.GERAL_ID_PERFIL).getElementsByTagName("span").get(1).getTextContent();
+		String stamina = page.getElementById(CrimsConstants.GERAL_ID_PERFIL).getElementsByTagName("span").get(2).getTextContent();
+		String vicio = page.getElementById(CrimsConstants.GERAL_ID_PERFIL).getElementsByTagName("span").get(3).getTextContent();
+		String inteligencia = page.getElementById(CrimsConstants.GERAL_ID_PERFIL).getElementsByTagName("span").get(4).getTextContent();
+		String carisma = page.getElementById(CrimsConstants.GERAL_ID_PERFIL).getElementsByTagName("span").get(5).getTextContent();
+		String forca = page.getElementById(CrimsConstants.GERAL_ID_PERFIL).getElementsByTagName("span").get(6).getTextContent();
+		String resistencia = page.getElementById(CrimsConstants.GERAL_ID_PERFIL).getElementsByTagName("span").get(7).getTextContent();
+		String grana = page.getElementById(CrimsConstants.GERAL_ID_PERFIL).getElementsByTagName("span").get(8).getTextContent();
+		grana = grana.substring(1);
+		
+		return perfil;
+	}
+	
+	@Override
 	public boolean doLogin(String[] credentials)
 	{
 		try

@@ -20,7 +20,7 @@ public class CrimsController
 	ICrimsService crimsService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<String> edit(@RequestHeader("Authorization") String authorization)
+	public @ResponseBody ResponseEntity<String> login(@RequestHeader("Authorization") String authorization)
 	{
 		String[] credentials = GeneralHelper.getLoginAndPasswordFromHeader(authorization);
 		if(credentials == null)
@@ -34,4 +34,18 @@ public class CrimsController
 						
 		}			
 	}
+	
+	@RequestMapping(value = "/perfil", method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<String> perfil(@RequestHeader("Authorization") String authorization)
+	{
+		String[] credentials = GeneralHelper.getLoginAndPasswordFromHeader(authorization);
+		if(credentials == null)
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+		else
+		{
+			crimsService.getPerfil(credentials);
+			return new ResponseEntity<String>(HttpStatus.OK);
+		}
+	}
+	
 }

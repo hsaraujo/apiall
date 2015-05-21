@@ -13,4 +13,12 @@ public class CrimsConstants
 	
 	//hsaraujo
 	//4d69185d7602
+	
+	
+	/*
+	 * TELA START
+	 */
+	
+	public static final String GERAL_ID_PERFIL = "content_right";
+    public static final String GERAL_ID_MENU = "content_right";
 }

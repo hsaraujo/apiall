@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import br.com.apiall.crims.model.Perfil;
 import br.com.apiall.crims.service.ICrimsService;
 import br.com.apiall.utils.GeneralHelper;
+
+import com.google.gson.GsonBuilder;
 
 @Controller
 @RequestMapping("/api/thecrims")
@@ -43,8 +46,9 @@ public class CrimsController
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		else
 		{
-			crimsService.getPerfil(credentials);
-			return new ResponseEntity<String>(HttpStatus.OK);
+			Perfil perfil = crimsService.getPerfil(credentials);
+			
+			return new ResponseEntity<String>(new GsonBuilder().create().toJson(perfil), HttpStatus.OK);
 		}
 	}
 	

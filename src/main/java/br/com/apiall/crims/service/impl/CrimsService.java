@@ -19,11 +19,11 @@ public class CrimsService implements ICrimsService
 	private WebClient webClient = new WebClient(BrowserVersion.FIREFOX_24);
 	private HtmlPage page;
 	
-	public void getPerfil(String[] credentials)
+	public Perfil getPerfil(String[] credentials)
 	{
 		doLogin(credentials);
 		
-		getPerfil();
+		return getPerfil();
 	}
 	
 	public Perfil getPerfil()
@@ -32,7 +32,7 @@ public class CrimsService implements ICrimsService
 
 		String moral = page.getElementById(CrimsConstants.GERAL_ID_PERFIL).getElementsByTagName("span").get(0).getTextContent();
 		String respeito = page.getElementById(CrimsConstants.GERAL_ID_PERFIL).getElementsByTagName("span").get(1).getTextContent();
-		String stamina = page.getElementById(CrimsConstants.GERAL_ID_PERFIL).getElementsByTagName("span").get(2).getTextContent();
+		String estamina = page.getElementById(CrimsConstants.GERAL_ID_PERFIL).getElementsByTagName("span").get(2).getTextContent();
 		String vicio = page.getElementById(CrimsConstants.GERAL_ID_PERFIL).getElementsByTagName("span").get(3).getTextContent();
 		String inteligencia = page.getElementById(CrimsConstants.GERAL_ID_PERFIL).getElementsByTagName("span").get(4).getTextContent();
 		String carisma = page.getElementById(CrimsConstants.GERAL_ID_PERFIL).getElementsByTagName("span").get(5).getTextContent();
@@ -40,6 +40,17 @@ public class CrimsService implements ICrimsService
 		String resistencia = page.getElementById(CrimsConstants.GERAL_ID_PERFIL).getElementsByTagName("span").get(7).getTextContent();
 		String grana = page.getElementById(CrimsConstants.GERAL_ID_PERFIL).getElementsByTagName("span").get(8).getTextContent();
 		grana = grana.substring(1);
+		
+		perfil.setMoral(moral);
+		perfil.setResistencia(Double.parseDouble(respeito));
+		perfil.setEstamina(Double.parseDouble(estamina));
+		perfil.setVicio(Double.parseDouble(vicio));
+		perfil.setInteligencia(Double.parseDouble(inteligencia));
+		perfil.setCarisma(Double.parseDouble(carisma));
+		perfil.setForca(Double.parseDouble(forca));
+		perfil.setResistencia(Double.parseDouble(resistencia));
+		perfil.setGrana(Double.parseDouble(grana));
+		
 		
 		return perfil;
 	}

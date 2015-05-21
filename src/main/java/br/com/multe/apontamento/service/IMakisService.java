@@ -1,11 +1,8 @@
 package br.com.multe.apontamento.service;
 
-import java.util.List;
-
-import br.com.multe.apontamento.model.Makis;
+import br.com.multe.apontamento.model.MakisReturn;
 
 public interface IMakisService 
 {
-
-	public List<Makis> getHistorico(String[] credentials);
+	public MakisReturn getHistorico(String[] credentials);
 }

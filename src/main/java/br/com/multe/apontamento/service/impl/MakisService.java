@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import br.com.multe.apontamento.model.Makis;
+import br.com.multe.apontamento.model.MakisReturn;
+import br.com.multe.apontamento.model.Total;
 import br.com.multe.apontamento.service.IMakisService;
 import br.com.multe.apontamento.utils.MakisConstants;
 
@@ -24,15 +26,36 @@ public class MakisService implements IMakisService
 	private HtmlPage page;
 
 	@Override
-	public List<Makis> getHistorico(String[] credentials)
+	public MakisReturn getHistorico(String[] credentials)
 	{
 		doLogin(credentials);
 		
 		List<Makis> makis = new ArrayList<Makis>();
+		Total total = new Total();
 		
 		makis = getAllHistoricos();
+		total = getTotal();
 		
-		return makis;
+		return new MakisReturn(makis, total);
+	}
+	
+	private Total getTotal()
+	{
+		Total total = new Total();
+		
+		try
+		{
+			HtmlTable table = (HtmlTable) page.getElementsByTagName("table").get(4);
+			List<HtmlTableRow> rows = table.getBodies().get(0).getRows();
+			
+			total.setCompras(Double.parseDouble(rows.get(rows.size() - 4).getCell(4).asText()));
+			total.setPontos(Double.parseDouble(rows.get(rows.size() - 3).getCell(4).asText()));
+			total.setResgates(Double.parseDouble(rows.get(rows.size() - 2).getCell(4).asText()));
+			total.setAtual(Double.parseDouble(rows.get(rows.size() -1).getCell(4).asText()));
+		}
+		catch(Exception e){ }
+		
+		return total;
 	}
 	
 	private synchronized List<Makis> getAllHistoricos()
@@ -45,7 +68,7 @@ public class MakisService implements IMakisService
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy");
 	
-			for(int i = 1; i < rows.size() - 5; i++)
+			for(int i = 1; i < rows.size() - 4; i++)
 			{
 				HtmlTableRow row = rows.get(i);
 				Makis makis = new Makis();
@@ -54,7 +77,7 @@ public class MakisService implements IMakisService
 				String custo = row.getCell(1).asText();
 				String pontos = row.getCell(2).asText();
 				String historico = row.getCell(3).asText();
-				String unidade = row.getCell(4).asText();
+				String unidade = row.getCell(5).asText();
 	
 				try
 				{

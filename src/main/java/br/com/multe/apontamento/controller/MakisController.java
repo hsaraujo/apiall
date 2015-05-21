@@ -1,7 +1,5 @@
 package br.com.multe.apontamento.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import br.com.multe.apontamento.model.Makis;
+import br.com.multe.apontamento.model.MakisReturn;
 import br.com.multe.apontamento.service.IMakisService;
 import br.com.multe.apontamento.utils.GeneralHelper;
 
@@ -31,8 +29,11 @@ public class MakisController
 		if(credentials == null)
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		
-		List<Makis> makisList = makisService.getHistorico(credentials);
+		MakisReturn makisReturn = makisService.getHistorico(credentials);
 		
-		return new ResponseEntity<String>(new GsonBuilder().setDateFormat("dd/MM/yyyy").create().toJson(makisList), HttpStatus.OK);
+//		List<Makis> makisList = makisReturn.getMakis();
+//		Total total = makisReturn.getTotal();
+		
+		return new ResponseEntity<String>(new GsonBuilder().setDateFormat("dd/MM/yyyy").create().toJson(makisReturn), HttpStatus.OK);
 	}
 }

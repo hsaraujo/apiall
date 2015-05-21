@@ -19,7 +19,7 @@ public class CrimsController
 	@Autowired
 	ICrimsService crimsService;
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET, consumes = "application/json")
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<String> edit(@RequestHeader("Authorization") String authorization)
 	{
 		String[] credentials = GeneralHelper.getLoginAndPasswordFromHeader(authorization);

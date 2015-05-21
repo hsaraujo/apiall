@@ -1,4 +1,4 @@
-package br.com.apiall.controller;
+package br.com.apiall.apontamento.controller;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import br.com.apiall.model.Apontamento;
-import br.com.apiall.service.IApontamentoService;
+import br.com.apiall.apontamento.model.Apontamento;
+import br.com.apiall.apontamento.service.IApontamentoService;
+import br.com.apiall.apontamento.utils.ApontamentoJsonHelper;
 import br.com.apiall.utils.GeneralHelper;
-import br.com.apiall.utils.JsonHelper;
 
 import com.google.gson.GsonBuilder;
 
@@ -49,7 +49,7 @@ public class ApontamentoController
 		if(credentials == null)
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		
-		Date[] dates = JsonHelper.getDatesFilterFromJson(body);
+		Date[] dates = ApontamentoJsonHelper.getDatesFilterFromJson(body);
 		if(dates == null)
 			return new ResponseEntity<String>("JSON formatado errado", HttpStatus.BAD_REQUEST);
 		
@@ -87,7 +87,7 @@ public class ApontamentoController
 		if(credentials == null)
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		
-		Apontamento apontamento = JsonHelper.getEventoFromJson(body);
+		Apontamento apontamento = ApontamentoJsonHelper.getEventoFromJson(body);
 		
 		if(apontamento == null)
 			return new ResponseEntity<String>("JSON formatado errado", HttpStatus.BAD_REQUEST);

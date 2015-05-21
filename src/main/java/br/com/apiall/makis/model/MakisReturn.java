@@ -1,4 +1,4 @@
-package br.com.apiall.model;
+package br.com.apiall.makis.model;
 
 import java.util.List;
 

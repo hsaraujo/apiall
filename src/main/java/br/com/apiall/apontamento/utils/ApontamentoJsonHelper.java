@@ -1,14 +1,14 @@
-package br.com.apiall.utils;
+package br.com.apiall.apontamento.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import br.com.apiall.model.Apontamento;
+import br.com.apiall.apontamento.model.Apontamento;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-public class JsonHelper 
+public class ApontamentoJsonHelper 
 {
 
 	public static Apontamento getEventoFromJson(String json)

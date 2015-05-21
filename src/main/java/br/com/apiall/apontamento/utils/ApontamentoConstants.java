@@ -1,4 +1,4 @@
-package br.com.apiall.utils;
+package br.com.apiall.apontamento.utils;
 
 public class ApontamentoConstants 
 {

@@ -1,4 +1,4 @@
-package br.com.apiall.service;
+package br.com.apiall.apontamento.service;
 
 import java.util.Date;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 
-import br.com.apiall.model.Apontamento;
+import br.com.apiall.apontamento.model.Apontamento;
 
 public interface IApontamentoService 
 {

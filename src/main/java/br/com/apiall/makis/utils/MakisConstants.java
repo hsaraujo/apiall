@@ -1,4 +1,4 @@
-package br.com.apiall.utils;
+package br.com.apiall.makis.utils;
 
 public class MakisConstants 
 {

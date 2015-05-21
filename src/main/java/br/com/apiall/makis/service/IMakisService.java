@@ -1,6 +1,6 @@
-package br.com.apiall.service;
+package br.com.apiall.makis.service;
 
-import br.com.apiall.model.MakisReturn;
+import br.com.apiall.makis.model.MakisReturn;
 
 public interface IMakisService 
 {

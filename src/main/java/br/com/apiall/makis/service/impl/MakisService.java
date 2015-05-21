@@ -1,4 +1,4 @@
-package br.com.apiall.service.impl;
+package br.com.apiall.makis.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -6,11 +6,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.com.apiall.model.Makis;
-import br.com.apiall.model.MakisReturn;
-import br.com.apiall.model.Total;
-import br.com.apiall.service.IMakisService;
-import br.com.apiall.utils.MakisConstants;
+import br.com.apiall.makis.model.Makis;
+import br.com.apiall.makis.model.MakisReturn;
+import br.com.apiall.makis.model.Total;
+import br.com.apiall.makis.service.IMakisService;
+import br.com.apiall.makis.utils.MakisConstants;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;

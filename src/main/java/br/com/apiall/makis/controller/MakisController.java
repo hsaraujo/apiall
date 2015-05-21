@@ -1,4 +1,4 @@
-package br.com.apiall.controller;
+package br.com.apiall.makis.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import br.com.apiall.model.MakisReturn;
-import br.com.apiall.service.IMakisService;
+import br.com.apiall.makis.model.MakisReturn;
+import br.com.apiall.makis.service.IMakisService;
 import br.com.apiall.utils.GeneralHelper;
 
 import com.google.gson.GsonBuilder;

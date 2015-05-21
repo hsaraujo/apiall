@@ -1,4 +1,4 @@
-package br.com.multe.apontamento.controller;
+package br.com.apime.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import br.com.multe.apontamento.model.MakisReturn;
-import br.com.multe.apontamento.service.IMakisService;
-import br.com.multe.apontamento.utils.GeneralHelper;
+import br.com.apime.model.MakisReturn;
+import br.com.apime.service.IMakisService;
+import br.com.apime.utils.GeneralHelper;
 
 import com.google.gson.GsonBuilder;
 

@@ -1,4 +1,4 @@
-package br.com.multe.apontamento.utils;
+package br.com.apime.utils;
 
 import java.nio.charset.Charset;
 

@@ -1,4 +1,4 @@
-package br.com.multe.apontamento.service.impl;
+package br.com.apime.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -6,11 +6,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.com.multe.apontamento.model.Makis;
-import br.com.multe.apontamento.model.MakisReturn;
-import br.com.multe.apontamento.model.Total;
-import br.com.multe.apontamento.service.IMakisService;
-import br.com.multe.apontamento.utils.MakisConstants;
+import br.com.apime.model.Makis;
+import br.com.apime.model.MakisReturn;
+import br.com.apime.model.Total;
+import br.com.apime.service.IMakisService;
+import br.com.apime.utils.MakisConstants;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;

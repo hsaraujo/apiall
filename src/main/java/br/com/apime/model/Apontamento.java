@@ -1,8 +1,8 @@
-package br.com.multe.apontamento.model;
+package br.com.apime.model;
 
 import java.util.Date;
 
-public class Evento 
+public class Apontamento 
 {
 	private long id;
 	private String funcionario;
@@ -11,9 +11,9 @@ public class Evento
 	private String descricao;
 	private Date inicio, fim;
 	
-	public Evento() { }
+	public Apontamento() { }
 	
-	public Evento(long id, String funcionario, String os, String categoria, String descricao, Date inicio, Date fim)
+	public Apontamento(long id, String funcionario, String os, String categoria, String descricao, Date inicio, Date fim)
 	{
 		this.id = id;
 		this.funcionario = funcionario;
@@ -24,7 +24,7 @@ public class Evento
 		this.fim = fim;		
 	}
 	
-	public Evento(long id, String funcionario, String os, Date inicio, Date fim)
+	public Apontamento(long id, String funcionario, String os, Date inicio, Date fim)
 	{
 		this.id = id;
 		this.funcionario = funcionario;

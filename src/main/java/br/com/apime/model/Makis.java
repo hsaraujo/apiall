@@ -1,4 +1,4 @@
-package br.com.multe.apontamento.model;
+package br.com.apime.model;
 
 import java.util.Date;
 

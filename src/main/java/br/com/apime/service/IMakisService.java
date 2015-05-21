@@ -1,6 +1,6 @@
-package br.com.multe.apontamento.service;
+package br.com.apime.service;
 
-import br.com.multe.apontamento.model.MakisReturn;
+import br.com.apime.model.MakisReturn;
 
 public interface IMakisService 
 {

@@ -1,4 +1,4 @@
-package br.com.multe.apontamento.controller;
+package br.com.apime.controller;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -16,19 +16,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import br.com.multe.apontamento.model.Evento;
-import br.com.multe.apontamento.service.IEventoService;
-import br.com.multe.apontamento.utils.GeneralHelper;
-import br.com.multe.apontamento.utils.JsonHelper;
+import br.com.apime.model.Apontamento;
+import br.com.apime.service.IApontamentoService;
+import br.com.apime.utils.GeneralHelper;
+import br.com.apime.utils.JsonHelper;
 
 import com.google.gson.GsonBuilder;
 
 @Controller
-@RequestMapping("/api")
-public class EventoController 
+@RequestMapping("/api/apontamento")
+public class ApontamentoController 
 {
 	@Autowired
-	IEventoService eventoService;
+	IApontamentoService apontamentoService;
 	
 	@RequestMapping(value = "/search", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	public @ResponseBody ResponseEntity<String> allApontamentos(@RequestHeader("Authorization") String authorization)
@@ -37,8 +37,8 @@ public class EventoController
 		if(credentials == null)
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		
-		List<Evento> eventos = eventoService.getEvents(credentials);
-		return new ResponseEntity<String>(new GsonBuilder().setDateFormat("dd/MM/yyyy HH:mm").create().toJson(eventos), HttpStatus.OK);
+		List<Apontamento> apontamentos = apontamentoService.getEvents(credentials);
+		return new ResponseEntity<String>(new GsonBuilder().setDateFormat("dd/MM/yyyy HH:mm").create().toJson(apontamentos), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST, consumes = "application/json", produces = "application/json; charset=UTF-8")
@@ -53,8 +53,8 @@ public class EventoController
 		if(dates == null)
 			return new ResponseEntity<String>("JSON formatado errado", HttpStatus.BAD_REQUEST);
 		
-		List<Evento> eventos = eventoService.getEventsWithFilter(credentials, dates[0], dates[1]);
-		return new ResponseEntity<String>(new GsonBuilder().setDateFormat("dd/MM/yyyy HH:mm").create().toJson(eventos), HttpStatus.OK);
+		List<Apontamento> apontamentos = apontamentoService.getEventsWithFilter(credentials, dates[0], dates[1]);
+		return new ResponseEntity<String>(new GsonBuilder().setDateFormat("dd/MM/yyyy HH:mm").create().toJson(apontamentos), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/novo", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
@@ -66,7 +66,7 @@ public class EventoController
 		
 		Map<String, List<String>> mapa = new HashMap<String, List<String>>();
 		
-		mapa = eventoService.getOsECategorias(credentials);
+		mapa = apontamentoService.getOsECategorias(credentials);
 		
 		try
 		{
@@ -87,12 +87,12 @@ public class EventoController
 		if(credentials == null)
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		
-		Evento evento = JsonHelper.getEventoFromJson(body);
+		Apontamento apontamento = JsonHelper.getEventoFromJson(body);
 		
-		if(evento == null)
+		if(apontamento == null)
 			return new ResponseEntity<String>("JSON formatado errado", HttpStatus.BAD_REQUEST);
 		else
-			return eventoService.insert(credentials, evento);
+			return apontamentoService.insert(credentials, apontamento);
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.PUT, consumes = "application/json")

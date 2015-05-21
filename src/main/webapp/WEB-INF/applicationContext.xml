@@ -14,7 +14,7 @@
 		http://www.springframework.org/schema/jee/spring-jee.xsd"
 > 
    		
-	<context:component-scan base-package="br.com.multe.apontamento" />
+	<context:component-scan base-package="br.com.apime" />
 	<mvc:annotation-driven/>
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	

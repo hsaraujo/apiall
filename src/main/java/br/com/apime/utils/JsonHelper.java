@@ -1,9 +1,9 @@
-package br.com.multe.apontamento.utils;
+package br.com.apime.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import br.com.multe.apontamento.model.Evento;
+import br.com.apime.model.Apontamento;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -11,16 +11,16 @@ import com.google.gson.JsonParser;
 public class JsonHelper 
 {
 
-	public static Evento getEventoFromJson(String json)
+	public static Apontamento getEventoFromJson(String json)
 	{
 		try
 		{
 			JsonObject jObj = (JsonObject) new JsonParser().parse(json);
 	        JsonObject obj = jObj.getAsJsonObject("evento");
 	
-	        Evento evento = getEventoFromObject(obj);
+	        Apontamento apontamento = getEventoFromObject(obj);
 	        
-	        return evento;
+	        return apontamento;
 		}
 		catch(Exception e)
 		{
@@ -65,22 +65,22 @@ public class JsonHelper
 		}
 	}
 	
-	private static Evento getEventoFromObject(JsonObject jsonObject)
+	private static Apontamento getEventoFromObject(JsonObject jsonObject)
     {
 		try
 		{
-	        Evento evento = new Evento();
+	        Apontamento apontamento = new Apontamento();
 	        
-	        evento.setOs(jsonObject.get("os").getAsString());
-			evento.setCategoria(jsonObject.get("categoria").getAsString());
-			evento.setDescricao(jsonObject.get("descricao").getAsString());
+	        apontamento.setOs(jsonObject.get("os").getAsString());
+			apontamento.setCategoria(jsonObject.get("categoria").getAsString());
+			apontamento.setDescricao(jsonObject.get("descricao").getAsString());
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 			
-			evento.setInicio(sdf.parse(jsonObject.get("inicio").getAsString()));
-			evento.setFim(sdf.parse(jsonObject.get("fim").getAsString()));
+			apontamento.setInicio(sdf.parse(jsonObject.get("inicio").getAsString()));
+			apontamento.setFim(sdf.parse(jsonObject.get("fim").getAsString()));
 	        
-	        return evento;
+	        return apontamento;
 		}
 		catch(Exception e)
 		{

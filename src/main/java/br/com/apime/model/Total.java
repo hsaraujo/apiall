@@ -1,4 +1,4 @@
-package br.com.multe.apontamento.model;
+package br.com.apime.model;
 
 public class Total 
 {

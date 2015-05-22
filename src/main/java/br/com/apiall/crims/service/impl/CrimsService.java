@@ -1,8 +1,12 @@
 package br.com.apiall.crims.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import br.com.apiall.crims.model.Perfil;
+import br.com.apiall.crims.model.Crime;
 import br.com.apiall.crims.service.ICrimsService;
 import br.com.apiall.utils.CrimsConstants;
 
@@ -11,7 +15,9 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
 @Service
 public class CrimsService implements ICrimsService 
@@ -19,6 +25,26 @@ public class CrimsService implements ICrimsService
 	private WebClient webClient = new WebClient(BrowserVersion.FIREFOX_24);
 	private HtmlPage page;
 	
+	@Override
+	public List<Crime> preparaCrime(String[] credentials)
+	{
+		doLogin(credentials);
+		
+		List<Crime> crimes = new ArrayList<Crime>();
+		
+		HtmlSelect cmbCrimes = (HtmlSelect) page.getElementsByTagName("select").get(0);
+		for(HtmlOption option : cmbCrimes.getOptions())
+		{
+			String valor = option.getValueAttribute();
+			String texto = option.getTextContent();
+			Crime crime = new Crime(Integer.parseInt(valor), texto);
+			crimes.add(crime);
+		}
+		
+		return crimes;
+	}
+	
+	@Override
 	public Perfil getPerfil(String[] credentials)
 	{
 		doLogin(credentials);
@@ -42,7 +68,7 @@ public class CrimsService implements ICrimsService
 		grana = grana.substring(1);
 		
 		perfil.setMoral(moral);
-		perfil.setResistencia(Double.parseDouble(respeito));
+		perfil.setRespeito(Double.parseDouble(respeito));
 		perfil.setEstamina(Double.parseDouble(estamina));
 		perfil.setVicio(Double.parseDouble(vicio));
 		perfil.setInteligencia(Double.parseDouble(inteligencia));

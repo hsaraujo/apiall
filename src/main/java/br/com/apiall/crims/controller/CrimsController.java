@@ -1,5 +1,7 @@
 package br.com.apiall.crims.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import br.com.apiall.crims.model.Crime;
 import br.com.apiall.crims.model.Perfil;
 import br.com.apiall.crims.service.ICrimsService;
 import br.com.apiall.utils.GeneralHelper;
@@ -49,6 +52,20 @@ public class CrimsController
 			Perfil perfil = crimsService.getPerfil(credentials);
 			
 			return new ResponseEntity<String>(new GsonBuilder().create().toJson(perfil), HttpStatus.OK);
+		}
+	}
+	
+	@RequestMapping(value = "/crime", method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<String> preparaCrime(@RequestHeader("Authorization") String authorization)
+	{
+		String[] credentials = GeneralHelper.getLoginAndPasswordFromHeader(authorization);
+		if(credentials == null)
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+		else
+		{
+			List<Crime> crimes = crimsService.preparaCrime(credentials);
+			
+			return new ResponseEntity<String>(new GsonBuilder().create().toJson(crimes), HttpStatus.OK);
 		}
 	}
 	

@@ -3,10 +3,16 @@ package br.com.apiall.crims.model;
 public class Perfil 
 {
 	private String nome, moral;
-	private double estamina, vicio, inteligencia, carisma, forca, resistencia, grana;
+	private double respeito, estamina, vicio, inteligencia, carisma, forca, resistencia, grana;
 	
 	public Perfil(){ }
 	
+	public double getRespeito(){
+		return respeito;
+	}
+	public void setRespeito(double respeito){
+		this.respeito = respeito;
+	}
 	public String getNome() {
 		return nome;
 	}

@@ -19,6 +19,14 @@ public class CrimsConstants
 	 * TELA START
 	 */
 	
+	public static final String GERAL_URL = "http://www.thecrims.com/start.php";
 	public static final String GERAL_ID_PERFIL = "content_right";
-    public static final String GERAL_ID_MENU = "content_right";
+    public static final String GERAL_ID_MENU = "content_left";
+    
+    
+    /*
+     * TELA ROUBO
+     */
+    
+    public static final String ROUBO_URL = "http://www.thecrims.com/robbery";
 }

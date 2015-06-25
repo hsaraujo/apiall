@@ -1,4 +1,4 @@
-package br.com.apiall.utils;
+package br.com.apiall.crims.utils;
 
 public class CrimsConstants 
 {
@@ -29,4 +29,5 @@ public class CrimsConstants
      */
     
     public static final String ROUBO_URL = "http://www.thecrims.com/robbery";
+    public static final String ROUBO_RESPONSE = "statusbox";
 }

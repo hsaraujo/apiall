@@ -12,6 +12,7 @@ public class Gamestats
 	private int			creepDeath;
 	private int 		neutral;
 	private int 		gold;
+	private int			towerKill;
 	private int 		rk;
 	private int			ck;
 	private String[]	items;
@@ -19,7 +20,7 @@ public class Gamestats
 	public Gamestats() { }
 	
 	public Gamestats(int slot, String name, String hero, int heroKill, int heroDeath, int assistence, int creepKill,
-					int creepDeath, int neutral, int gold, int rk, int ck, String[] items)
+					int creepDeath, int neutral, int gold, int towerKill,int rk, int ck, String[] items)
 	{
 		this.slot		= slot;
 		this.name		= name;
@@ -31,6 +32,7 @@ public class Gamestats
 		this.creepDeath = creepDeath;
 		this.neutral	= neutral;
 		this.gold		= gold;
+		this.towerKill	= towerKill;
 		this.rk			= rk;
 		this.ck			= ck;
 		this.items 		= items;
@@ -114,6 +116,14 @@ public class Gamestats
 
 	public void setGold(int gold) {
 		this.gold = gold;
+	}
+
+	public int getTowerKill() {
+		return towerKill;
+	}
+
+	public void setTowerKill(int towerKill) {
+		this.towerKill = towerKill;
 	}
 
 	public int getRk() {

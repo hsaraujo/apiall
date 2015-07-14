@@ -180,17 +180,18 @@ public class BraService implements IBraService
 				int creepDeath	= Integer.parseInt(row.getCell(8).asText());
 				int neutral		= Integer.parseInt(row.getCell(9).asText());
 				int gold		= Integer.parseInt(row.getCell(10).asText());
-				int rk			= Integer.parseInt(row.getCell(11).asText());
-				int ck			= Integer.parseInt(row.getCell(12).asText());
+				int towerKill	= Integer.parseInt(row.getCell(11).asText());
+				int rk			= Integer.parseInt(row.getCell(12).asText());
+				int ck			= Integer.parseInt(row.getCell(13).asText());
 				
 				String[] items  = new String[6];
 				for(int j = 0; j < 6; j++)
 				{
-					items[j]	= getImageSrcFromCell(row.getCell(13+j));
+					items[j]	= getImageSrcFromCell(row.getCell(14+j));
 				}
 				
 				Gamestats game = new Gamestats(slot, name, hero, heroKill, heroDeath, assistence, creepKill,
-												creepDeath, neutral, gold, rk, ck, items);
+												creepDeath, neutral, gold, towerKill, rk, ck, items);
 				
 				gamestatsList.add(game);
 			}

@@ -1,153 +1,85 @@
 package br.com.apiall.canalbra.model;
 
+import java.util.List;
+
 public class Gamestats 
 {
-	private int 		slot;
-	private String 		name;
-	private String 		hero;
-	private int 		heroKill;
-	private int			heroDeath;
-	private int			assistence;
-	private int 		creepKill;
-	private int			creepDeath;
-	private int 		neutral;
-	private int 		gold;
-	private int			towerKill;
-	private int 		rk;
-	private int			ck;
-	private String[]	items;
+	private List<MemberGamestats> 	memberGamestatsList;
+	private int 					sentinelPoints;
+	private int 					scourgePoints;
+	private String 					winner;
+	private String					bestKiller;
+	private String					bestFarmer;
+	private String					bestTowerRaxKiller;
 	
 	public Gamestats() { }
 	
-	public Gamestats(int slot, String name, String hero, int heroKill, int heroDeath, int assistence, int creepKill,
-					int creepDeath, int neutral, int gold, int towerKill,int rk, int ck, String[] items)
+	public Gamestats(List<MemberGamestats> memberGamestatsList, int sentinelPoints, int scourgePoints, String winner,
+					String bestKiller, String bestFarmer, String bestTowerRaxKiller)
 	{
-		this.slot		= slot;
-		this.name		= name;
-		this.hero		= hero;
-		this.heroKill	= heroKill;
-		this.heroDeath	= heroDeath;
-		this.assistence	= assistence;
-		this.creepKill	= creepKill;
-		this.creepDeath = creepDeath;
-		this.neutral	= neutral;
-		this.gold		= gold;
-		this.towerKill	= towerKill;
-		this.rk			= rk;
-		this.ck			= ck;
-		this.items 		= items;
+		this.memberGamestatsList	= memberGamestatsList;
+		this.sentinelPoints			= sentinelPoints;
+		this.scourgePoints			= scourgePoints;
+		this.winner					= winner;
+		this.bestKiller				= bestKiller;
+		this.bestFarmer				= bestFarmer;
+		this.bestTowerRaxKiller		= bestTowerRaxKiller;
 	}
 
-	public int getSlot() {
-		return slot;
+	public List<MemberGamestats> getMemberGamestatsList() {
+		return memberGamestatsList;
 	}
 
-	public void setSlot(int slot) {
-		this.slot = slot;
+	public void setMemberGamestatsList(List<MemberGamestats> memberGamestatsList) {
+		this.memberGamestatsList = memberGamestatsList;
 	}
 
-	public String getName() {
-		return name;
+	public int getSentinelPoints() {
+		return sentinelPoints;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setSentinelPoints(int sentinelPoints) {
+		this.sentinelPoints = sentinelPoints;
 	}
 
-	public String getHero() {
-		return hero;
+	public int getScourgePoints() {
+		return scourgePoints;
 	}
 
-	public void setHero(String hero) {
-		this.hero = hero;
+	public void setScourgePoints(int scourgePoints) {
+		this.scourgePoints = scourgePoints;
 	}
 
-	public int getHeroKill() {
-		return heroKill;
+	public String getWinner() {
+		return winner;
 	}
 
-	public void setHeroKill(int heroKill) {
-		this.heroKill = heroKill;
+	public void setWinner(String winner) {
+		this.winner = winner;
 	}
 
-	public int getHeroDeath() {
-		return heroDeath;
+	public String getBestKiller() {
+		return bestKiller;
 	}
 
-	public void setHeroDeath(int heroDeath) {
-		this.heroDeath = heroDeath;
+	public void setBestKiller(String bestKiller) {
+		this.bestKiller = bestKiller;
 	}
 
-	public int getAssistence() {
-		return assistence;
+	public String getBestFarmer() {
+		return bestFarmer;
 	}
 
-	public void setAssistence(int assistence) {
-		this.assistence = assistence;
+	public void setBestFarmer(String bestFarmer) {
+		this.bestFarmer = bestFarmer;
 	}
 
-	public int getCreepKill() {
-		return creepKill;
+	public String getBestTowerRaxKiller() {
+		return bestTowerRaxKiller;
 	}
 
-	public void setCreepKill(int creepKill) {
-		this.creepKill = creepKill;
-	}
-
-	public int getCreepDeath() {
-		return creepDeath;
-	}
-
-	public void setCreepDeath(int creepDeath) {
-		this.creepDeath = creepDeath;
-	}
-
-	public int getNeutral() {
-		return neutral;
-	}
-
-	public void setNeutral(int neutral) {
-		this.neutral = neutral;
-	}
-
-	public int getGold() {
-		return gold;
-	}
-
-	public void setGold(int gold) {
-		this.gold = gold;
-	}
-
-	public int getTowerKill() {
-		return towerKill;
-	}
-
-	public void setTowerKill(int towerKill) {
-		this.towerKill = towerKill;
-	}
-
-	public int getRk() {
-		return rk;
-	}
-
-	public void setRk(int rk) {
-		this.rk = rk;
-	}
-
-	public int getCk() {
-		return ck;
-	}
-
-	public void setCk(int ck) {
-		this.ck = ck;
-	}
-
-	public String[] getItems() {
-		return items;
-	}
-
-	public void setItems(String[] items) {
-		this.items = items;
+	public void setBestTowerRaxKiller(String bestTowerRaxKiller) {
+		this.bestTowerRaxKiller = bestTowerRaxKiller;
 	}
 	
 	

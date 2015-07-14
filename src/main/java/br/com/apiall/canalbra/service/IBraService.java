@@ -9,8 +9,8 @@ import br.com.apiall.canalbra.model.Rank;
 
 public interface IBraService 
 {
-	List<Rank> 		getRank();
-	List<Ban> 		getBanlist();
-	List<Game> 		getGames(int page);
-	List<Gamestats> getGamestats(int id);
+	List<Rank> 	getRank();
+	List<Ban> 	getBanlist();
+	List<Game> 	getGames(int page);
+	Gamestats 	getGamestats(int id);
 }

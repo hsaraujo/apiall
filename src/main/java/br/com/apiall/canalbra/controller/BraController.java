@@ -68,17 +68,17 @@ public class BraController
 	@RequestMapping(value = "/gamestats", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	public @ResponseBody ResponseEntity<String> gamestats(@RequestParam(value="id") Integer id)
 	{
-		List<Gamestats> gamestatsList	= new ArrayList<Gamestats>();
+		Gamestats gamestats	= new Gamestats();
 		
 		if(id == null)
 		{
-			return new ResponseEntity<String>(new GsonBuilder().create().toJson(gamestatsList), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>(new GsonBuilder().create().toJson(gamestats), HttpStatus.BAD_REQUEST);
 		}
 		else
 		{
-			gamestatsList	= braService.getGamestats(id);
+			gamestats	= braService.getGamestats(id);
 			
-			return new ResponseEntity<String>(new GsonBuilder().create().toJson(gamestatsList), HttpStatus.OK);
+			return new ResponseEntity<String>(new GsonBuilder().create().toJson(gamestats), HttpStatus.OK);
 		}
 	}
 }

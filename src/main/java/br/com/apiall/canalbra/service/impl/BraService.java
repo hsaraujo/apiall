@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import br.com.apiall.canalbra.model.Ban;
 import br.com.apiall.canalbra.model.Game;
 import br.com.apiall.canalbra.model.Gamestats;
+import br.com.apiall.canalbra.model.MemberGamestats;
 import br.com.apiall.canalbra.model.Rank;
 import br.com.apiall.canalbra.service.IBraService;
 import br.com.apiall.canalbra.utils.BraConstants;
@@ -154,9 +155,9 @@ public class BraService implements IBraService
 	}
 
 	@Override
-	public List<Gamestats> getGamestats(int id)
+	public Gamestats getGamestats(int id)
 	{
-		List<Gamestats> gamestatsList = new ArrayList<Gamestats>();
+		Gamestats gamestats = new Gamestats();
 		
 		try
 		{
@@ -165,6 +166,8 @@ public class BraService implements IBraService
 			HtmlTable table = (HtmlTable) page.getElementsByTagName("table").get(2);
 			
 			List<HtmlTableRow> rows = table.getBodies().get(0).getRows();
+			
+			List<MemberGamestats> memberGameList = new ArrayList<MemberGamestats>();
 			
 			for(int i = 5; i < rows.size() - 2; i++)
 			{
@@ -190,18 +193,21 @@ public class BraService implements IBraService
 					items[j]	= getImageSrcFromCell(row.getCell(14+j));
 				}
 				
-				Gamestats game = new Gamestats(slot, name, hero, heroKill, heroDeath, assistence, creepKill,
+				MemberGamestats memberGame = new MemberGamestats(slot, name, hero, heroKill, heroDeath, assistence, creepKill,
 												creepDeath, neutral, gold, towerKill, rk, ck, items);
 				
-				gamestatsList.add(game);
+				memberGameList.add(memberGame);
 			}
+			
+			gamestats.setMemberGamestatsList(memberGameList);
+			
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 		
-		return gamestatsList;
+		return gamestats;
 	}
 	
 	private String getAnchorValueCell(HtmlTableCell cell)

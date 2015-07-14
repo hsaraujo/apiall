@@ -1,4 +1,4 @@
-package br.com.apiall.canalbra.utils;
+package br.com.apiall.canalbra.model;
 
 public class Rank 
 {

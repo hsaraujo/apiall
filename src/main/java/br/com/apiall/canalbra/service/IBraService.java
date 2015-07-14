@@ -2,9 +2,15 @@ package br.com.apiall.canalbra.service;
 
 import java.util.List;
 
-import br.com.apiall.canalbra.utils.Rank;
+import br.com.apiall.canalbra.model.Ban;
+import br.com.apiall.canalbra.model.Game;
+import br.com.apiall.canalbra.model.Gamestats;
+import br.com.apiall.canalbra.model.Rank;
 
 public interface IBraService 
 {
-	List<Rank> getRank();
+	List<Rank> 		getRank();
+	List<Ban> 		getBanlist();
+	List<Game> 		getGames(int page);
+	List<Gamestats> getGamestats(int id);
 }

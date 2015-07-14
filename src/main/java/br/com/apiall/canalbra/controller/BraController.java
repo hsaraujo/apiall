@@ -1,5 +1,6 @@
 package br.com.apiall.canalbra.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import br.com.apiall.canalbra.model.Ban;
+import br.com.apiall.canalbra.model.Game;
+import br.com.apiall.canalbra.model.Gamestats;
+import br.com.apiall.canalbra.model.Rank;
 import br.com.apiall.canalbra.service.IBraService;
-import br.com.apiall.canalbra.utils.Rank;
 
 import com.google.gson.GsonBuilder;
 
@@ -24,11 +29,56 @@ public class BraController
 	private IBraService braService;
 	
 	@RequestMapping(value = "/rank", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-	public @ResponseBody ResponseEntity<String> allApontamentos()
+	public @ResponseBody ResponseEntity<String> rank()
 	{
 		List<Rank> ranks	= braService.getRank();
 		
 		return new ResponseEntity<String>(new GsonBuilder().create().toJson(ranks), HttpStatus.OK);
 	}
-
+	
+	@RequestMapping(value = "/banlist", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public @ResponseBody ResponseEntity<String> banlist()
+	{
+		List<Ban> banList	= braService.getBanlist();
+		
+		return new ResponseEntity<String>(new GsonBuilder().create().toJson(banList), HttpStatus.OK);
+	}
+	
+//	@RequestMapping(value = "/games", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+//	public @ResponseBody ResponseEntity<String> games()
+//	{
+//		List<Game> games	= braService.getGames(1);
+//		
+//		return new ResponseEntity<String>(new GsonBuilder().create().toJson(games), HttpStatus.OK);
+//	}
+	
+	@RequestMapping(value = "/games", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public @ResponseBody ResponseEntity<String> gamesWithPage(@RequestParam(value="page") Integer page)
+	{
+		List<Game> games = new ArrayList<Game>();
+		
+		if(page == null)
+			games	= braService.getGames(1);
+		else
+			games	= braService.getGames(page.intValue());
+		
+		return new ResponseEntity<String>(new GsonBuilder().create().toJson(games), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/gamestats", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public @ResponseBody ResponseEntity<String> gamestats(@RequestParam(value="id") Integer id)
+	{
+		List<Gamestats> gamestatsList	= new ArrayList<Gamestats>();
+		
+		if(id == null)
+		{
+			return new ResponseEntity<String>(new GsonBuilder().create().toJson(gamestatsList), HttpStatus.BAD_REQUEST);
+		}
+		else
+		{
+			gamestatsList	= braService.getGamestats(id);
+			
+			return new ResponseEntity<String>(new GsonBuilder().create().toJson(gamestatsList), HttpStatus.OK);
+		}
+	}
 }

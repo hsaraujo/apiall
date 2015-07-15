@@ -279,9 +279,9 @@ public class BraService implements IBraService
 			
 			List<MemberGame> memberGames = new ArrayList<MemberGame>();
 			
-			for(int i = 4; i < games; i++)
+			for(int i = 0; i < games; i++)
 			{
-				HtmlTable tableStats	= (HtmlTable) page.getElementsByTagName("table").get(i);
+				HtmlTable tableStats	= (HtmlTable) page.getElementsByTagName("table").get(4+i);
 				
 				topRow 					= tableStats.getBodies().get(0).getRows().get(1);
 				botRow					= tableStats.getBodies().get(0).getRows().get(3);

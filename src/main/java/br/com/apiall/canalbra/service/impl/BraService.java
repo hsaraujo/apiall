@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.w3c.dom.html.HTMLDivElement;
 
 import br.com.apiall.canalbra.model.Ban;
 import br.com.apiall.canalbra.model.Game;
@@ -15,6 +16,7 @@ import br.com.apiall.canalbra.utils.BraConstants;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.gargoylesoftware.htmlunit.html.HtmlTableCell;
@@ -201,6 +203,36 @@ public class BraService implements IBraService
 			
 			gamestats.setMemberGamestatsList(memberGameList);
 			
+			
+			// GETTING POINTS FOR SENTINEL AND SCOURGE
+			
+			HtmlTableRow rowPoints	= rows.get(rows.size() - 2);
+			int[] points			= getSentinelAndScourgePointsFromCell(rowPoints.getCell(0));
+			
+			int sentinelPoints		= points[0];
+			int scourgePoints		= points[1];
+			
+			gamestats.setSentinelPoints(sentinelPoints);
+			gamestats.setScourgePoints(scourgePoints);
+			
+			
+			// GETTING WINNER
+			
+			HtmlTableRow winnerRow	= rows.get(rows.size() -1);
+			String winner = winnerRow.getAttribute("class");
+			
+			gamestats.setWinner(winner);
+			
+			
+			// GETTING 
+			
+			HtmlDivision content	= (HtmlDivision) page.getElementById("content");
+			
+			int divs  				= content.getElementsByTagName("div").size();
+			
+			content.getElementsByTagName("div").get(divs-3);
+			
+			
 		}
 		catch(Exception e)
 		{
@@ -215,5 +247,21 @@ public class BraService implements IBraService
 		return cell.getElementsByTagName("a").get(0).asText();
 	}
 	
+	private int[] getSentinelAndScourgePointsFromCell(HtmlTableCell cell)
+	{
+		// References for Substring
+		String sentinel 	= "Sentinel";
+		String scourge		= "Scourge";
+		String points		= "points";
+		
+		String pointsStr	= cell.asText();
+		
+		int sentinelPoint	= Integer.parseInt(pointsStr.substring(sentinel.length() + 1, pointsStr.indexOf(',')));
+		int scourgePoint 	= sentinelPoint * (-1);
+//		int scourgePoint	= Integer.parseInt(pointsStr.substring(pointsStr.indexOf(scourge) + scourge.length() + 1, pointsStr.indexOf(points) - 1));
+		
+		
+		return new int[] { sentinelPoint, scourgePoint };
+	}
 	
 }

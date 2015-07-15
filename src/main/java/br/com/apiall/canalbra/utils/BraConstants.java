@@ -27,4 +27,11 @@ public class BraConstants
 	 */
 	
 	public static final String GAMESTATS_URL = "http://br.xpam.pl/brasil/gamestats.php?id=";
+	
+	
+	/*
+	 * TELA MEMBER
+	 */
+	
+	public static final String MEMBER_URL = "http://br.xpam.pl/brasil/userstats.php?user=";
 }

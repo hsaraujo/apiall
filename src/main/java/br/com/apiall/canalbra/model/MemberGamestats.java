@@ -9,7 +9,7 @@ public class MemberGamestats
 	private int			heroDeath;
 	private int			assistence;
 	private int 		creepKill;
-	private int			creepDeath;
+	private int			creepDenny;
 	private int 		neutral;
 	private int 		gold;
 	private int			towerKill;
@@ -20,7 +20,7 @@ public class MemberGamestats
 	public MemberGamestats() { }
 	
 	public MemberGamestats(int slot, String name, String hero, int heroKill, int heroDeath, int assistence, int creepKill,
-					int creepDeath, int neutral, int gold, int towerKill,int rk, int ck, String[] items)
+					int creepDenny, int neutral, int gold, int towerKill,int rk, int ck, String[] items)
 	{
 		this.slot		= slot;
 		this.name		= name;
@@ -29,7 +29,7 @@ public class MemberGamestats
 		this.heroDeath	= heroDeath;
 		this.assistence	= assistence;
 		this.creepKill	= creepKill;
-		this.creepDeath = creepDeath;
+		this.creepDenny	= creepDenny;
 		this.neutral	= neutral;
 		this.gold		= gold;
 		this.towerKill	= towerKill;
@@ -94,12 +94,12 @@ public class MemberGamestats
 		this.creepKill = creepKill;
 	}
 
-	public int getCreepDeath() {
-		return creepDeath;
+	public int getCreepDenny() {
+		return creepDenny;
 	}
 
-	public void setCreepDeath(int creepDeath) {
-		this.creepDeath = creepDeath;
+	public void setCreepDenny(int creepDenny) {
+		this.creepDenny = creepDenny;
 	}
 
 	public int getNeutral() {

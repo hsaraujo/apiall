@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import br.com.apiall.canalbra.model.Ban;
 import br.com.apiall.canalbra.model.Game;
 import br.com.apiall.canalbra.model.Gamestats;
+import br.com.apiall.canalbra.model.Memberstats;
 import br.com.apiall.canalbra.model.Rank;
 import br.com.apiall.canalbra.service.IBraService;
 
@@ -79,6 +80,23 @@ public class BraController
 			gamestats	= braService.getGamestats(id);
 			
 			return new ResponseEntity<String>(new GsonBuilder().create().toJson(gamestats), HttpStatus.OK);
+		}
+	}
+	
+	@RequestMapping(value = "/member", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public @ResponseBody ResponseEntity<String> member(@RequestParam(value="user") String user)
+	{
+		Memberstats memberStats = new Memberstats();
+		
+		if(user == null)
+		{
+			return new ResponseEntity<String>(new GsonBuilder().create().toJson(memberStats), HttpStatus.BAD_REQUEST);
+		}
+		else
+		{	
+			memberStats = braService.getMember(user);
+			
+			return new ResponseEntity<String>(new GsonBuilder().create().toJson(memberStats), HttpStatus.OK);
 		}
 	}
 }

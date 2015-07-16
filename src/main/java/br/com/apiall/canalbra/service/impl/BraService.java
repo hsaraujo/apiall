@@ -30,7 +30,7 @@ public class BraService implements IBraService
 	private WebClient webClient = new WebClient(BrowserVersion.FIREFOX_24);
 	private HtmlPage page;
 	
-	private final int PAGE_LIMIT = 50;
+	private final int PAGE_LIMIT = 30;
 	
 	@Override
 	public List<Rank> getRank() 

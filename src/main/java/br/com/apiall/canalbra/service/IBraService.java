@@ -14,5 +14,5 @@ public interface IBraService
 	List<Ban> 	getBanlist();
 	List<Game> 	getGames(int page);
 	Gamestats 	getGamestats(int id);
-	Memberstats	getMember(String user);
+	Memberstats	getMember(String user, int page);
 }

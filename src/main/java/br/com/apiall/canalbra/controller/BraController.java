@@ -84,17 +84,17 @@ public class BraController
 	}
 	
 	@RequestMapping(value = "/member", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-	public @ResponseBody ResponseEntity<String> member(@RequestParam(value="user") String user)
+	public @ResponseBody ResponseEntity<String> member(@RequestParam(value="user") String user, @RequestParam(value="page") Integer page)
 	{
 		Memberstats memberStats = new Memberstats();
 		
-		if(user == null)
+		if(user == null || page == null)
 		{
 			return new ResponseEntity<String>(new GsonBuilder().create().toJson(memberStats), HttpStatus.BAD_REQUEST);
 		}
 		else
 		{	
-			memberStats = braService.getMember(user);
+			memberStats = braService.getMember(user, page);
 			
 			return new ResponseEntity<String>(new GsonBuilder().create().toJson(memberStats), HttpStatus.OK);
 		}

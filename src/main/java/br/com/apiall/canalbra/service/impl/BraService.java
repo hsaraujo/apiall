@@ -30,6 +30,8 @@ public class BraService implements IBraService
 	private WebClient webClient = new WebClient(BrowserVersion.FIREFOX_24);
 	private HtmlPage page;
 	
+	private final int PAGE_LIMIT = 50;
+	
 	@Override
 	public List<Rank> getRank() 
 	{
@@ -240,7 +242,7 @@ public class BraService implements IBraService
 	}
 	
 	@Override
-	public Memberstats getMember(String user) 
+	public Memberstats getMember(String user, int pageNumber) 
 	{
 		Memberstats memberStats = new Memberstats();
 		
@@ -279,9 +281,15 @@ public class BraService implements IBraService
 			
 			List<MemberGame> memberGames = new ArrayList<MemberGame>();
 			
-			for(int i = 0; i < games; i++)
+			int start	= (pageNumber - 1) * PAGE_LIMIT;
+			int end		= start + PAGE_LIMIT;
+			
+			if(end > games)
+				end = games;
+			
+			while(start < end)
 			{
-				HtmlTable tableStats	= (HtmlTable) page.getElementsByTagName("table").get(4+i);
+				HtmlTable tableStats	= (HtmlTable) page.getElementsByTagName("table").get(4 + start);
 				
 				topRow 					= tableStats.getBodies().get(0).getRows().get(1);
 				botRow					= tableStats.getBodies().get(0).getRows().get(3);
@@ -317,8 +325,8 @@ public class BraService implements IBraService
 				
 				memberGames.add(memberGame);
 				
+				start++;
 			}
-			
 			
 			memberStats.setMember(member);
 			memberStats.setMemberGames(memberGames);

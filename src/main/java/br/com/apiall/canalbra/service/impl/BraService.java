@@ -277,7 +277,7 @@ public class BraService implements IBraService
 			Member member = new Member(rank, points, lvl, joined, games, wins, looses, heroKill, heroDeath, assist,
 								creepKill, creepDeny, neutral, towerKill, rk, ck);
 
-			
+			memberStats.setMember(member);
 			
 			List<MemberGame> memberGames = new ArrayList<MemberGame>();
 			
@@ -286,6 +286,12 @@ public class BraService implements IBraService
 			
 			if(end > games)
 				end = games;
+			
+			if(start > games)
+			{
+				memberStats.setMemberGames(memberGames);
+				return memberStats;
+			}
 			
 			while(start < end)
 			{
@@ -328,7 +334,6 @@ public class BraService implements IBraService
 				start++;
 			}
 			
-			memberStats.setMember(member);
 			memberStats.setMemberGames(memberGames);
 			
 		}

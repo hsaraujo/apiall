@@ -88,12 +88,18 @@ public class BraController
 	{
 		Memberstats memberStats = new Memberstats();
 		
-		if(user == null || page == null)
+		if(user == null)
 		{
 			return new ResponseEntity<String>(new GsonBuilder().create().toJson(memberStats), HttpStatus.BAD_REQUEST);
 		}
-		else
+		else if(page == null)
 		{	
+			memberStats = braService.getMember(user, 1);
+			
+			return new ResponseEntity<String>(new GsonBuilder().create().toJson(memberStats), HttpStatus.OK);
+		}
+		else
+		{
 			memberStats = braService.getMember(user, page);
 			
 			return new ResponseEntity<String>(new GsonBuilder().create().toJson(memberStats), HttpStatus.OK);

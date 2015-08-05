@@ -26,20 +26,19 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 
 @Service
 public class BraService implements IBraService 
-{
-	private WebClient webClient = new WebClient(BrowserVersion.FIREFOX_24);
-	private HtmlPage page;
-	
-	private final int PAGE_LIMIT = 30;
+{		
+	private static final int PAGE_LIMIT = 30;
 	
 	@Override
 	public List<Rank> getRank() 
 	{
 		List<Rank> ranks = new ArrayList<Rank>();
 		
+		WebClient webClient = new WebClient(BrowserVersion.FIREFOX_24);
+		
 		try
 		{
-			page = webClient.getPage(BraConstants.RANK_URL);
+			HtmlPage page = webClient.getPage(BraConstants.RANK_URL);
 			
 			HtmlTable table = (HtmlTable) page.getElementsByTagName("table").get(2);
 			
@@ -83,9 +82,11 @@ public class BraService implements IBraService
 	{
 		List<Ban> banlist = new ArrayList<Ban>();
 		
+		WebClient webClient = new WebClient(BrowserVersion.FIREFOX_24);
+		
 		try
 		{
-			page = webClient.getPage(BraConstants.BANLIST_URL);
+			HtmlPage page = webClient.getPage(BraConstants.BANLIST_URL);
 			
 			HtmlTable table = (HtmlTable) page.getElementsByTagName("table").get(2);
 			
@@ -122,9 +123,11 @@ public class BraService implements IBraService
 	{
 		List<Game> games = new ArrayList<Game>();
 		
+		WebClient webClient = new WebClient(BrowserVersion.FIREFOX_24);
+		
 		try
 		{
-			page = webClient.getPage(BraConstants.GAMES_URL + String.valueOf(pageNumber));
+			HtmlPage page = webClient.getPage(BraConstants.GAMES_URL + String.valueOf(pageNumber));
 			
 			HtmlTable table = (HtmlTable) page.getElementsByTagName("table").get(2);
 			
@@ -158,9 +161,11 @@ public class BraService implements IBraService
 	{
 		Gamestats gamestats = new Gamestats();
 		
+		WebClient webClient = new WebClient(BrowserVersion.FIREFOX_24);
+		
 		try
 		{
-			page = webClient.getPage(BraConstants.GAMESTATS_URL + String.valueOf(id));
+			HtmlPage page = webClient.getPage(BraConstants.GAMESTATS_URL + String.valueOf(id));
 			
 			HtmlTable table = (HtmlTable) page.getElementsByTagName("table").get(2);
 			
@@ -252,9 +257,11 @@ public class BraService implements IBraService
 	{
 		Memberstats memberStats = new Memberstats();
 		
+		WebClient webClient = new WebClient(BrowserVersion.FIREFOX_24);
+		
 		try
 		{
-			page = webClient.getPage(BraConstants.MEMBER_URL + user);
+			HtmlPage page = webClient.getPage(BraConstants.MEMBER_URL + user);
 			
 			HtmlTable topTable 	= (HtmlTable) page.getElementsByTagName("table").get(2);
 			HtmlTable botTable	= (HtmlTable) page.getElementsByTagName("table").get(3);

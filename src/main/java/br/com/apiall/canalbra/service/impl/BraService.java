@@ -73,6 +73,8 @@ public class BraService implements IBraService
 			e.printStackTrace();
 		}
 		
+		webClient.closeAllWindows();
+		
 		return ranks;
 	}
 	
@@ -109,6 +111,8 @@ public class BraService implements IBraService
 		{
 			e.printStackTrace();
 		}
+		
+		webClient.closeAllWindows();
 		
 		return banlist;
 	}
@@ -238,6 +242,8 @@ public class BraService implements IBraService
 			e.printStackTrace();
 		}
 		
+		webClient.closeAllWindows();
+		
 		return gamestats;
 	}
 	
@@ -312,7 +318,7 @@ public class BraService implements IBraService
 				}
 				
 				String team				= getStringDivFromCell(topRow.getCell(10));
-				boolean winner			= getStringDivFromCell(topRow.getCell(10)).equalsIgnoreCase(team);
+				boolean winner			= getStringDivFromCell(topRow.getCell(11)).equalsIgnoreCase(team);
 				
 				heroKill				= Integer.parseInt(getStringDivFromCell(botRow.getCell(1)));
 				heroDeath				= Integer.parseInt(getStringDivFromCell(botRow.getCell(2)));
@@ -341,6 +347,9 @@ public class BraService implements IBraService
 		{
 			e.printStackTrace();
 		}
+		
+		
+		webClient.closeAllWindows();
 		
 		return memberStats;
 	}

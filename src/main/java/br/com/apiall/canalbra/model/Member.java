@@ -2,6 +2,7 @@ package br.com.apiall.canalbra.model;
 
 public class Member 
 {
+	private String name;
 	private int rank;
 	private int points;
 	private int lvl;
@@ -21,9 +22,10 @@ public class Member
 	
 	public Member() { }
 	
-	public Member(int rank, int points, int lvl, String joined, int games, int wins, int looses, int heroKill,
+	public Member(String name, int rank, int points, int lvl, String joined, int games, int wins, int looses, int heroKill,
 				int heroDeath, int assist, int creepKill, int creepDeny, int neutral, int towerKill, int rk, int ck)
 	{
+		this.name 		= name;
 		this.rank		= rank;
 		this.points		= points;
 		this.lvl		= lvl;
@@ -42,6 +44,14 @@ public class Member
 		this.ck			= ck;
 	}
 
+	public String getName(){
+		return name;
+	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
+	
 	public int getRank() {
 		return rank;
 	}

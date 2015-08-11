@@ -287,7 +287,7 @@ public class BraService implements IBraService
 			int rk			= Integer.parseInt(	botRow.getCell(10)	.getElementsByTagName("div").get(0).asText());
 			int ck			= Integer.parseInt(	botRow.getCell(11)	.getElementsByTagName("div").get(0).asText());
 				
-			Member member = new Member(rank, points, lvl, joined, games, wins, looses, heroKill, heroDeath, assist,
+			Member member = new Member(user, rank, points, lvl, joined, games, wins, looses, heroKill, heroDeath, assist,
 								creepKill, creepDeny, neutral, towerKill, rk, ck);
 
 			memberStats.setMember(member);

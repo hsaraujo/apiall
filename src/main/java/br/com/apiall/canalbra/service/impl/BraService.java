@@ -263,6 +263,8 @@ public class BraService implements IBraService
 		{
 			HtmlPage page = webClient.getPage(BraConstants.MEMBER_URL + user);
 			
+			memberStats.setPage(pageNumber);
+			
 			HtmlTable topTable 	= (HtmlTable) page.getElementsByTagName("table").get(2);
 			HtmlTable botTable	= (HtmlTable) page.getElementsByTagName("table").get(3);
 			

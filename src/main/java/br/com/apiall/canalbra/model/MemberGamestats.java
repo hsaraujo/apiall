@@ -7,7 +7,7 @@ public class MemberGamestats
 	private String 		hero;
 	private int 		heroKill;
 	private int			heroDeath;
-	private int			assistence;
+	private int			assist;
 	private int 		creepKill;
 	private int			creepDenny;
 	private int 		neutral;
@@ -19,7 +19,7 @@ public class MemberGamestats
 	
 	public MemberGamestats() { }
 	
-	public MemberGamestats(int slot, String name, String hero, int heroKill, int heroDeath, int assistence, int creepKill,
+	public MemberGamestats(int slot, String name, String hero, int heroKill, int heroDeath, int assist, int creepKill,
 					int creepDenny, int neutral, int gold, int towerKill,int rk, int ck, String[] items)
 	{
 		this.slot		= slot;
@@ -27,7 +27,7 @@ public class MemberGamestats
 		this.hero		= hero;
 		this.heroKill	= heroKill;
 		this.heroDeath	= heroDeath;
-		this.assistence	= assistence;
+		this.assist		= assist;
 		this.creepKill	= creepKill;
 		this.creepDenny	= creepDenny;
 		this.neutral	= neutral;
@@ -78,12 +78,12 @@ public class MemberGamestats
 		this.heroDeath = heroDeath;
 	}
 
-	public int getAssistence() {
-		return assistence;
+	public int getAssist() {
+		return assist;
 	}
 
-	public void setAssistence(int assistence) {
-		this.assistence = assistence;
+	public void setAssist(int assist) {
+		this.assist = assist;
 	}
 
 	public int getCreepKill() {
